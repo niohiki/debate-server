@@ -10,15 +10,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.niohiki.debateserver.handlers.StaticHandler;
 import org.niohiki.debateserver.servlets.ChronoServlet;
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 public class MainFrame extends javax.swing.JFrame {
