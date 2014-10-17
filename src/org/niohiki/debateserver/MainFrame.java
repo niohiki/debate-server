@@ -10,6 +10,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ContextHandler;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -24,10 +27,6 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() throws Exception {
         locale = loadLocale();
         configuration = loadConfiguration();
-        for (int i = 0; i < configuration.stances.number; i++) {
-            System.out.println(configuration.stances.get(i).name);
-            System.out.println(configuration.stances.get(i).time);
-        }
         initComponents();
         setupIPArea();
         setupServer();
@@ -77,12 +76,23 @@ public class MainFrame extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="server setup">
     private void setupServer() throws Exception {
+        ResourceHandler resourceHandler = new ResourceHandler();
+        resourceHandler.setDirectoriesListed(true);
+        resourceHandler.setResourceBase("/");
+        resourceHandler.setResourceBase(this.getClass().getClassLoader().
+                getResource("org/niohiki/debateserver/staticresources").toExternalForm());
+        ContextHandler resourceContextHandler = new ContextHandler("/static/");
+        resourceContextHandler.setHandler(resourceHandler);
+
+        HandlerList handlers = new HandlerList();
+        handlers.addHandler(resourceContextHandler);
+
         server = new Server(80);
+        server.setHandler(handlers);
         server.start();
     }
 
     // </editor-fold>
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

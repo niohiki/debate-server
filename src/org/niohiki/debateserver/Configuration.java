@@ -1,7 +1,6 @@
 package org.niohiki.debateserver;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
