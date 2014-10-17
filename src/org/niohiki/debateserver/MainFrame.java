@@ -13,7 +13,11 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.niohiki.debateserver.handlers.StaticHandler;
+import org.niohiki.debateserver.servlets.ChronoServlet;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -24,6 +28,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private Server server;
     private StaticHandler staticHandler;
+    private ServletContextHandler servletHandler;
 
     // <editor-fold defaultstate="collapsed" desc="constructor">
     public MainFrame() throws Exception {
@@ -79,9 +84,14 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="server setup">
     private void setupServer() throws Exception {
         staticHandler = new StaticHandler();
+        servletHandler = new ServletContextHandler();
+
+        servletHandler.setContextPath("/");
+        servletHandler.addServlet(new ServletHolder(new ChronoServlet()), Names.chronoContext);
 
         HandlerList handlers = new HandlerList();
         handlers.addHandler(staticHandler);
+        handlers.addHandler(servletHandler);
 
         server = new Server(80);
         server.setHandler(handlers);
