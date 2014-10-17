@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locale>
+    <app>
+        <title>Servidor de debate Agade</title>
+    </app>
+    <ipinfo>
+        <tabtitle>Informacion IP</tabtitle>
+        <iplabel>IPs para esta maquina</iplabel>
+        <firewallinfo>El firewall debe permitir que Java acepte conexiones entrantes</firewallinfo>
+    </ipinfo>
+</locale>
