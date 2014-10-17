@@ -13,6 +13,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.niohiki.debateserver.handlers.StaticHandler;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -22,6 +23,7 @@ public class MainFrame extends javax.swing.JFrame {
     private final Configuration configuration;
 
     private Server server;
+    private StaticHandler staticHandler;
 
     // <editor-fold defaultstate="collapsed" desc="constructor">
     public MainFrame() throws Exception {
@@ -63,29 +65,23 @@ public class MainFrame extends javax.swing.JFrame {
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new Locale(dBuilder.parse(new File("locale.xml")));
+        return new Locale(dBuilder.parse(new File(Names.localeFile)));
     }
 
     private Configuration loadConfiguration() throws
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new Configuration(dBuilder.parse(new File("configuration.xml")));
+        return new Configuration(dBuilder.parse(new File(Names.configurationFile)));
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="server setup">
     private void setupServer() throws Exception {
-        ResourceHandler resourceHandler = new ResourceHandler();
-        resourceHandler.setDirectoriesListed(true);
-        resourceHandler.setResourceBase("/");
-        resourceHandler.setResourceBase(this.getClass().getClassLoader().
-                getResource("org/niohiki/debateserver/staticresources").toExternalForm());
-        ContextHandler resourceContextHandler = new ContextHandler("/static/");
-        resourceContextHandler.setHandler(resourceHandler);
+        staticHandler = new StaticHandler();
 
         HandlerList handlers = new HandlerList();
-        handlers.addHandler(resourceContextHandler);
+        handlers.addHandler(staticHandler);
 
         server = new Server(80);
         server.setHandler(handlers);
