@@ -10,9 +10,7 @@ public class StaticHandler extends ContextHandler {
         super(Names.staticResourceContext);
         ResourceHandler resourceHandler = new ResourceHandler();
         resourceHandler.setDirectoriesListed(true);
-        resourceHandler.setResourceBase("/");
-        resourceHandler.setResourceBase(this.getClass().getClassLoader().
-                getResource(Names.staticResourcePath).toExternalForm());
+        resourceHandler.setResourceBase(Names.staticResourcePath);
         setHandler(resourceHandler);
     }
 }
