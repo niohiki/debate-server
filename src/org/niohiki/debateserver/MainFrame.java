@@ -10,7 +10,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.session.HashSessionIdManager;
+import org.eclipse.jetty.server.session.HashSessionManager;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.niohiki.debateserver.handlers.StaticHandler;
@@ -24,6 +28,7 @@ public class MainFrame extends javax.swing.JFrame {
     private final Session session;
 
     private Server server;
+    private HashSessionIdManager idManager;
     private StaticHandler staticHandler;
     private ServletContextHandler servletHandler;
 
@@ -89,8 +94,8 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="server setup">
     private void setupServer() throws Exception {
         staticHandler = new StaticHandler();
-        servletHandler = new ServletContextHandler();
 
+        servletHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletHandler.setContextPath("/");
         servletHandler.addServlet(new ServletHolder(
                 new ChronoServlet(configuration, locale)),
@@ -101,6 +106,7 @@ public class MainFrame extends javax.swing.JFrame {
         handlers.addHandler(servletHandler);
 
         server = new Server(80);
+        server.setSessionIdManager(idManager);
         server.setHandler(handlers);
         server.start();
     }
