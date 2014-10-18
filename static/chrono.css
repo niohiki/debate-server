@@ -1,7 +1,7 @@
 body{
     background-color: white;
 }
-.list {
+.select_list {
     width: 70%;
     background-color: white;
     padding: 10px;
@@ -9,7 +9,7 @@ body{
     margin-left: auto;
     margin-right: auto;
 }
-.item{
+.select_item{
     width: auto;
     background-color: #99cc00;
     margin-bottom: 5px;
@@ -17,7 +17,7 @@ body{
     padding: 10px;
     overflow: hidden;
 }
-.text{
+.select_text{
     display: inline-block;
     padding: 10px;
     background-color: white;
@@ -27,7 +27,7 @@ body{
     font-variant: small-caps;
     cursor: default;
 }
-.button{
+.select_button{
     margin-left: 10px;
     cursor: pointer;
     float: right;

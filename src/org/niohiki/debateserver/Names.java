@@ -9,4 +9,5 @@ public class Names {
 
     public static final String localeFile = "etc/locale.xml";
     public static final String configurationFile = "etc/configuration.xml";
+    public static final String sessionFile = "etc/session.xml";
 }

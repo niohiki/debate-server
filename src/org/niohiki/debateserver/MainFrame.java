@@ -21,6 +21,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private final Locale locale;
     private final Configuration configuration;
+    private final Session session;
 
     private Server server;
     private StaticHandler staticHandler;
@@ -30,6 +31,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() throws Exception {
         locale = loadLocale();
         configuration = loadConfiguration();
+        session = loadSession();
         initComponents();
         setupIPArea();
         setupServer();
@@ -75,6 +77,13 @@ public class MainFrame extends javax.swing.JFrame {
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         return new Configuration(dBuilder.parse(new File(Names.configurationFile)));
     }
+
+    private Session loadSession() throws
+            ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        return new Session(dBuilder.parse(new File(Names.sessionFile)));
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="server setup">
@@ -83,7 +92,9 @@ public class MainFrame extends javax.swing.JFrame {
         servletHandler = new ServletContextHandler();
 
         servletHandler.setContextPath("/");
-        servletHandler.addServlet(new ServletHolder(new ChronoServlet()), Names.chronoContext);
+        servletHandler.addServlet(new ServletHolder(
+                new ChronoServlet(configuration, locale)),
+                Names.chronoContext);
 
         HandlerList handlers = new HandlerList();
         handlers.addHandler(staticHandler);

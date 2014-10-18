@@ -8,4 +8,9 @@
         <iplabel>IPs para esta maquina</iplabel>
         <firewallinfo>El firewall debe permitir que Java acepte conexiones entrantes</firewallinfo>
     </ipinfo>
+    <chrono>
+        <newchrono>Nuevo</newchrono>
+        <see>Ver</see>
+        <control>Control</control>
+    </chrono>
 </locale>
