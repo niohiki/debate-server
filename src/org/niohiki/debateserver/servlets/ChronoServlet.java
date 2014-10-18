@@ -64,8 +64,9 @@ public class ChronoServlet extends HttpServlet {
 
     private String makeChronoList() {
         Div[] items = new Div[chronometers.size() + 1];
-        items[0] = new ClickableDiv("select_item", "location.href='chrono?new=1'", "", "",
-                new Div("select_text select_button", "", locale.chrono.newChrono)
+        items[0] = new Div("select_item", "", "",
+                new ClickableDiv("select_text select_button", "location.href='chrono?new=1'",
+                        "", locale.chrono.newChrono)
         );
         Iterator<String> keys = chronometers.keySet().iterator();
         for (int i = 1; i < items.length; i++) {
