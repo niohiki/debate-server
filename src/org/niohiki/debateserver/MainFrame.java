@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.security.MessageDigest;
 import java.util.Enumeration;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,9 +24,12 @@ import org.xml.sax.SAXException;
 
 public class MainFrame extends javax.swing.JFrame {
 
-    private final Locale locale;
-    private final Configuration configuration;
-    private final Session session;
+    public final Locale locale;
+    public final Configuration configuration;
+    public final Session session;
+
+    public final String passwordMD5;
+    public final String passwordChronoMD5;
 
     private Server server;
     private HashSessionIdManager idManager;
@@ -37,6 +41,17 @@ public class MainFrame extends javax.swing.JFrame {
         locale = loadLocale();
         configuration = loadConfiguration();
         session = loadSession();
+
+        if (false) {
+            PasswordDialog pd = new PasswordDialog(this);
+            pd.setVisible(true);
+            passwordMD5 = pd.getPasswordMD5();
+            passwordChronoMD5 = pd.getPasswordChronoMD5();
+        } else {
+            passwordMD5 = new String(MessageDigest.getInstance("MD5").digest("ganso".getBytes()));
+            passwordChronoMD5 = new String(MessageDigest.getInstance("MD5").digest("ganso".getBytes()));
+        }
+
         initComponents();
         setupIPArea();
         setupServer();
@@ -98,7 +113,7 @@ public class MainFrame extends javax.swing.JFrame {
         servletHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletHandler.setContextPath("/");
         servletHandler.addServlet(new ServletHolder(
-                new ChronoServlet(configuration, locale)),
+                new ChronoServlet(configuration, locale, passwordChronoMD5)),
                 Names.chronoContext);
 
         HandlerList handlers = new HandlerList();

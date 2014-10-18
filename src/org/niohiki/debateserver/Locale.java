@@ -15,8 +15,9 @@ public class Locale {
         app = new App((Element) root.getElementsByTagName("app").item(0));
         chrono = new Chrono((Element) root.getElementsByTagName("chrono").item(0));
     }
-    
-    public class Chrono{
+
+    public class Chrono {
+
         public final String newChrono;
         public final String see;
         public final String control;
@@ -31,9 +32,15 @@ public class Locale {
     public class App {
 
         public final String title;
+        public final String passwordInput;
+        public final String passwordInputChrono;
+        public final String okButton;
 
         public App(Element e) {
             title = e.getElementsByTagName("title").item(0).getTextContent();
+            passwordInput = e.getElementsByTagName("passwordinput").item(0).getTextContent();
+            passwordInputChrono = e.getElementsByTagName("passwordinputchrono").item(0).getTextContent();
+            okButton = e.getElementsByTagName("okbutton").item(0).getTextContent();
         }
     }
 

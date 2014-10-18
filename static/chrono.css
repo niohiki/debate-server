@@ -32,3 +32,13 @@ body{
     cursor: pointer;
     float: right;
 }
+.password_form{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%);
+    transform: translateX(-50%);
+}
+.password_text{
+    padding: 10px;
+}

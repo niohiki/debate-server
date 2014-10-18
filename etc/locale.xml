@@ -2,6 +2,9 @@
 <locale>
     <app>
         <title>Servidor de debate Agade</title>
+        <passwordinput>Contraseña maestra</passwordinput>
+        <passwordinputchrono>Contraseña de cronometro</passwordinputchrono>
+        <okbutton>Aceptar</okbutton>
     </app>
     <ipinfo>
         <tabtitle>Informacion IP</tabtitle>
