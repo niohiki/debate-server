@@ -1,39 +1,54 @@
 package org.niohiki.debateserver.html;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Tag {
 
     private final String name;
-    private final String classname;
-    private final String contents;
-    private final String attributes;
-    private final Tag[] children;
+    private String contents;
+    private final ArrayList<Tag> children;
+    private final ArrayList<Attribute> attributes;
 
-    public Tag(String name, String classname, String attributes, String contents, Tag... children) {
+    public Tag(String name) {
         this.name = name;
-        this.classname = classname;
-        this.contents = contents;
-        this.attributes = attributes;
-        this.children = children;
+        this.contents = "";
+        this.children = new ArrayList<>();
+        this.attributes = new ArrayList<>();
+    }
+
+    public Tag attribute(String name, String value) {
+        attributes.add(new Attribute(name, value));
+        return this;
+    }
+
+    public Tag child(Tag... child) {
+        children.addAll(Arrays.asList(child));
+        return this;
+    }
+
+    public Tag content(String content) {
+        this.contents = content;
+        return this;
     }
 
     public final String toHTML() {
         return toHTML(0);
     }
 
+    @Override
+    public String toString() {
+        return toHTML();
+    }
+
     private String toHTML(int level) {
         StringBuilder makeContents = new StringBuilder(""), makeAttributes = new StringBuilder("");
         if (contents.length() > 0) {
-            makeContents = new StringBuilder(tabs(level + 1)).
-                    append(contents).append("\n");
-        } else {
-            makeContents = new StringBuilder("");
+            makeContents.append(tabs(level + 1)).append(contents).append("\n");
         }
-        if (classname.length() > 0) {
-            makeAttributes.append(" class=\"").append(classname).append("\"");
-        }
-        if (attributes.length() > 0) {
-            makeAttributes.append(" ").append(attributes);
-        }
+        attributes.forEach((a) -> {
+            makeAttributes.append(" ").append(a.name).append("=\"").append(a.value).append("\"");
+        });
         return new StringBuilder(tabs(level)).append("<").append(name).append(makeAttributes).append(">\n").
                 append(makeContents).
                 append(childrenHTML(level)).
@@ -42,9 +57,9 @@ public class Tag {
 
     private String childrenHTML(int level) {
         StringBuilder r = new StringBuilder("");
-        for (Tag child : children) {
+        children.forEach((child) -> {
             r.append(child.toHTML(level + 1));
-        }
+        });
         return r.toString();
     }
 
@@ -54,5 +69,16 @@ public class Tag {
             t.append("\t");
         }
         return t.toString();
+    }
+
+    public class Attribute {
+
+        public final String name;
+        public final String value;
+
+        public Attribute(String name, String value) {
+            this.name = name;
+            this.value = value;
+        }
     }
 }
