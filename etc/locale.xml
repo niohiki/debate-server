@@ -19,7 +19,7 @@
     <chrono>
         <newchrono>Nuevo</newchrono>
         <newsubmit>Ok</newsubmit>
-        <see>Ver</see>
+        <watch>Ver</watch>
         <control>Control</control>
     </chrono>
 </locale>
