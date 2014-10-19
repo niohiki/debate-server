@@ -94,7 +94,16 @@ public class ChronoServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().println(makeChronoList());
         } else if ("1".equals(request.getParameter("get"))) {
-
+            Chronometer chrono = chronometers.get(request.getParameter("id"));
+            StringBuilder JSON = new StringBuilder("");
+            JSON.append("{\n").
+                    append("\t\"stance\" : \"").append(chrono.stance()).append("\",\n").
+                    append("\t\"mainTime\" : \"").append(chrono.mainTimeNanos()).append("\",\n").
+                    append("\t\"secondaryTime\" : \"").append(chrono.secondaryTimeNanos()).append("\",\n").
+                    append("}");
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().println(JSON.toString());
         } else if ("1".equals(request.getParameter("watch"))) {
             Chronometer chrono = chronometers.get(request.getParameter("id"));
             response.setContentType("text/html");

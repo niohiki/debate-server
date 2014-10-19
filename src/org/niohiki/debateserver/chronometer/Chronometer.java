@@ -96,6 +96,10 @@ public class Chronometer {
     public String name() {
         return teamA.name + " vs " + teamB.name;
     }
+    
+    public String stance(){
+        return configuration.stances.get(stance).name;
+    }
 
     @Override
     public String toString() {
