@@ -13,6 +13,8 @@
     </ipinfo>
     <chronoinfo>
         <tabtitle>Cronometros</tabtitle>
+        <chrononame>Debate</chrononame>
+        <chronoid>ID</chronoid>
     </chronoinfo>
     <chrono>
         <newchrono>Nuevo</newchrono>
