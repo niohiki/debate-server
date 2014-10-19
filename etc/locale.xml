@@ -15,6 +15,9 @@
         <tabtitle>Cronometros</tabtitle>
         <chrononame>Debate</chrononame>
         <chronoid>ID</chronoid>
+        <stance>Postura</stance>
+        <mainrunning>Ppal. en marcha</mainrunning>
+        <secondaryrunning>Sec. en marcha</secondaryrunning>
     </chronoinfo>
     <chrono>
         <newchrono>Nuevo</newchrono>

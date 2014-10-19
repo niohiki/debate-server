@@ -66,11 +66,17 @@ public class Locale {
         public final String tabTitle;
         public final String chronoName;
         public final String chronoID;
+        public final String mainRunning;
+        public final String secondaryRunning;
+        public final String stance;
 
         public ChronoInfo(Element e) {
             tabTitle = e.getElementsByTagName("tabtitle").item(0).getTextContent();
             chronoName = e.getElementsByTagName("chrononame").item(0).getTextContent();
             chronoID = e.getElementsByTagName("chronoid").item(0).getTextContent();
+            mainRunning = e.getElementsByTagName("mainrunning").item(0).getTextContent();
+            secondaryRunning = e.getElementsByTagName("secondaryrunning").item(0).getTextContent();
+            stance = e.getElementsByTagName("stance").item(0).getTextContent();
         }
     }
 }

@@ -23,7 +23,7 @@ public class ChronoTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 5;
     }
 
     @Override
@@ -32,6 +32,12 @@ public class ChronoTableModel extends AbstractTableModel {
             return locale.chronoInfo.chronoName;
         } else if (i == 1) {
             return locale.chronoInfo.chronoID;
+        } else if (i == 2) {
+            return locale.chronoInfo.stance;
+        } else if (i == 3) {
+            return locale.chronoInfo.mainRunning;
+        } else if (i == 4) {
+            return locale.chronoInfo.secondaryRunning;
         } else {
             return "";
         }
@@ -44,6 +50,12 @@ public class ChronoTableModel extends AbstractTableModel {
             return chronometers.get(key).name();
         } else if (columnIndex == 1) {
             return key;
+        } else if (columnIndex == 2) {
+            return chronometers.get(key).stance();
+        } else if (columnIndex == 3) {
+            return chronometers.get(key).isMainRunning();
+        } else if (columnIndex == 4) {
+            return chronometers.get(key).isSecondaryRunning();
         } else {
             return "";
         }

@@ -94,11 +94,19 @@ public class Chronometer {
         alive = false;
     }
 
+    public boolean isMainRunning() {
+        return mainRunning;
+    }
+
+    public boolean isSecondaryRunning() {
+        return secondaryRunning;
+    }
+
     public String name() {
         return teamA.name + " vs " + teamB.name;
     }
-    
-    public String stance(){
+
+    public String stance() {
         return configuration.stances.get(stance).name;
     }
 
