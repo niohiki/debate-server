@@ -62,12 +62,15 @@ public class Locale {
     }
     
     public class ChronoInfo{
-        
 
         public final String tabTitle;
+        public final String chronoName;
+        public final String chronoID;
 
         public ChronoInfo(Element e) {
             tabTitle = e.getElementsByTagName("tabtitle").item(0).getTextContent();
+            chronoName = e.getElementsByTagName("chrononame").item(0).getTextContent();
+            chronoID = e.getElementsByTagName("chronoid").item(0).getTextContent();
         }
     }
 }

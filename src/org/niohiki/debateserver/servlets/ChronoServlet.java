@@ -37,13 +37,14 @@ public class ChronoServlet extends HttpServlet {
     private final String md5password;
     private final SecureRandom random;
 
-    public ChronoServlet(Configuration conf, DebateSession session, Locale loc, String md5pass) {
+    public ChronoServlet(Configuration conf, DebateSession session, Locale loc,
+            HashMap<String,Chronometer> chronos, String md5pass) {
         configuration = conf;
         debateSession = session;
         locale = loc;
         md5password = md5pass;
         random = new SecureRandom();
-        chronometers = new HashMap<>();
+        chronometers = chronos;
     }
 
     @Override

@@ -7,6 +7,9 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.security.MessageDigest;
 import java.util.Enumeration;
+import java.util.HashMap;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,8 +21,10 @@ import org.eclipse.jetty.server.session.HashSessionManager;
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.niohiki.debateserver.chronometer.Chronometer;
 import org.niohiki.debateserver.handlers.StaticHandler;
 import org.niohiki.debateserver.servlets.ChronoServlet;
+import org.niohiki.debateserver.swing.ChronoTableModel;
 import org.xml.sax.SAXException;
 
 public class MainFrame extends javax.swing.JFrame {
@@ -36,11 +41,17 @@ public class MainFrame extends javax.swing.JFrame {
     private StaticHandler staticHandler;
     private ServletContextHandler servletHandler;
 
+    private final HashMap<String, Chronometer> chronometers;
+    private final ChronoTableModel chronoTableModel;
+
     // <editor-fold defaultstate="collapsed" desc="constructor">
     public MainFrame() throws Exception {
         locale = loadLocale();
         configuration = loadConfiguration();
         session = loadSession();
+
+        chronometers = new HashMap<>();
+        chronoTableModel = new ChronoTableModel(locale, chronometers);
 
         if (false) {
             PasswordDialog pd = new PasswordDialog(this);
@@ -113,7 +124,8 @@ public class MainFrame extends javax.swing.JFrame {
         servletHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletHandler.setContextPath("/");
         servletHandler.addServlet(new ServletHolder(
-                new ChronoServlet(configuration, session, locale, passwordChronoMD5)),
+                new ChronoServlet(configuration, session, locale,
+                        chronometers, passwordChronoMD5)),
                 Names.chronoContext);
 
         HandlerList handlers = new HandlerList();
@@ -136,14 +148,23 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ipTextArea = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
+        chronoPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        chronoTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(locale.app.title);
 
         tabbedPane.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabChanged(evt);
+            }
+        });
 
         jLabel1.setText(locale.ipInfo.ipLabel);
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         ipTextArea.setEditable(false);
         ipTextArea.setBackground(new java.awt.Color(240, 240, 240));
@@ -159,7 +180,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(ipInfoPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ipInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                     .addGroup(ipInfoPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -171,24 +192,35 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         tabbedPane.addTab(locale.ipInfo.tabTitle, ipInfoPanel);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 441, Short.MAX_VALUE)
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        chronoTable.setModel(chronoTableModel);
+        jScrollPane2.setViewportView(chronoTable);
+
+        javax.swing.GroupLayout chronoPanelLayout = new javax.swing.GroupLayout(chronoPanel);
+        chronoPanel.setLayout(chronoPanelLayout);
+        chronoPanelLayout.setHorizontalGroup(
+            chronoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(chronoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 291, Short.MAX_VALUE)
+        chronoPanelLayout.setVerticalGroup(
+            chronoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(chronoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        tabbedPane.addTab("tab2", jPanel1);
+        tabbedPane.addTab(locale.chronoInfo.tabTitle, chronoPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,13 +236,19 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tabChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabChanged
+        chronoTableModel.fireTableDataChanged();
+    }//GEN-LAST:event_tabChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel chronoPanel;
+    private javax.swing.JTable chronoTable;
     private javax.swing.JPanel ipInfoPanel;
     private javax.swing.JTextArea ipTextArea;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }
