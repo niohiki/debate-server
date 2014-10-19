@@ -75,6 +75,8 @@ public class ChronoServlet extends HttpServlet {
                             Integer.parseInt(request.getParameter("teamb")));
                     Chronometer newChronometer = new Chronometer(configuration,
                             teamA, teamB);
+                    newChronometer.mainReset();
+                    newChronometer.mainRun();
                     String id;
                     do {
                         id = new BigInteger(130, random).toString(32);
@@ -98,17 +100,19 @@ public class ChronoServlet extends HttpServlet {
             StringBuilder JSON = new StringBuilder("");
             JSON.append("{\n").
                     append("\t\"stance\" : \"").append(chrono.stance()).append("\",\n").
-                    append("\t\"mainTime\" : \"").append(chrono.mainTimeNanos()).append("\",\n").
-                    append("\t\"secondaryTime\" : \"").append(chrono.secondaryTimeNanos()).append("\",\n").
+                    append("\t\"name\" : \"").append(chrono.name()).append("\",\n").
+                    append("\t\"mainTime\" : ").append(chrono.mainTimeNanos()).append(",\n").
+                    append("\t\"secondaryTime\" : ").append(chrono.secondaryTimeNanos()).append("\n").
                     append("}");
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().println(JSON.toString());
         } else if ("1".equals(request.getParameter("watch"))) {
-            Chronometer chrono = chronometers.get(request.getParameter("id"));
+            String key = request.getParameter("id");
+            Chronometer chrono = chronometers.get(key);
             response.setContentType("text/html");
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().println(makeWatch(chrono));
+            response.getWriter().println(makeWatch(key, chrono));
         } else {
             HttpSession httpSession = request.getSession();
             if ("1".equals(httpSession.getAttribute("chrono_authenticated"))) {
@@ -197,7 +201,7 @@ public class ChronoServlet extends HttpServlet {
         ).toHTML();
     }
 
-    private String makeWatch(Chronometer chrono) {
+    private String makeWatch(String id, Chronometer chrono) {
         return new HTML().child(
                 new Head().child(
                         new CSSLink("/static/chrono.css"),
@@ -206,16 +210,18 @@ public class ChronoServlet extends HttpServlet {
                 new Body().child(
                         new Div("watch_chrono").attribute("id", "chrono").child(
                                 new Div("").child(
-                                        new Div("watch_text").content(chrono.name())
+                                        new Div("watch_text").attribute("id", "name").content(chrono.name())
                                 ),
                                 new Div("").child(
-                                        new Div("watch_display").attribute("id", "display").content("3:00")
+                                        new Div("watch_display").attribute("id", "display").content("---")
                                 ),
                                 new Div("").child(
-                                        new Div("watch_text").content("LAlaLaalalAlala")
+                                        new Div("watch_text").attribute("id", "stance").content("---")
                                 )
                         ),
-                        new Script().content("readapt(); setInterval(readapt, 200);")
+                        new Script().content(
+                                "readapt(\"" + id + "\"); "
+                                + "setInterval(function(){readapt(\"" + id + "\");}, 200);")
                 )
         ).toHTML();
     }

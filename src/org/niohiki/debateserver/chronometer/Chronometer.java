@@ -5,7 +5,8 @@ import org.niohiki.debateserver.DebateSession.Teams.Team;
 
 public class Chronometer {
 
-    private final static int sleepTimeNanos = 1000;
+    private final static int sleepTimeNanos = 0;
+    private final static int sleepTimeMillis = 10;
 
     private long lastTimeNanos;
     private long mainTimeNanos;
@@ -41,7 +42,7 @@ public class Chronometer {
                     secondaryTimeNanos += delta;
                 }
                 try {
-                    Thread.sleep(0, sleepTimeNanos);
+                    Thread.sleep(sleepTimeMillis, sleepTimeNanos);
                 } catch (InterruptedException ex) {
                 }
             }
