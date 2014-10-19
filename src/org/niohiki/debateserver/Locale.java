@@ -21,14 +21,14 @@ public class Locale {
     public class Chrono {
 
         public final String newChrono;
-        public final String see;
+        public final String watch;
         public final String control;
         public final String newSubmit;
 
         public Chrono(Element e) {
             newChrono = e.getElementsByTagName("newchrono").item(0).getTextContent();
             newSubmit = e.getElementsByTagName("newsubmit").item(0).getTextContent();
-            see = e.getElementsByTagName("see").item(0).getTextContent();
+            watch = e.getElementsByTagName("watch").item(0).getTextContent();
             control = e.getElementsByTagName("control").item(0).getTextContent();
         }
     }

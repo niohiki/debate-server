@@ -25,6 +25,7 @@ import org.niohiki.debateserver.html.HTML;
 import org.niohiki.debateserver.html.Head;
 import org.niohiki.debateserver.html.Input;
 import org.niohiki.debateserver.html.Option;
+import org.niohiki.debateserver.html.Script;
 import org.niohiki.debateserver.html.Select;
 import org.niohiki.debateserver.html.Tag;
 
@@ -38,7 +39,7 @@ public class ChronoServlet extends HttpServlet {
     private final SecureRandom random;
 
     public ChronoServlet(Configuration conf, DebateSession session, Locale loc,
-            HashMap<String,Chronometer> chronos, String md5pass) {
+            HashMap<String, Chronometer> chronos, String md5pass) {
         configuration = conf;
         debateSession = session;
         locale = loc;
@@ -94,11 +95,11 @@ public class ChronoServlet extends HttpServlet {
             response.getWriter().println(makeChronoList());
         } else if ("1".equals(request.getParameter("get"))) {
 
-        } else if ("1".equals(request.getParameter("see"))) {
+        } else if ("1".equals(request.getParameter("watch"))) {
             Chronometer chrono = chronometers.get(request.getParameter("id"));
-            response.setContentType("text");
+            response.setContentType("text/html");
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().println(chrono.mainTimeNanos() / (1000 * 1000 * 1000));
+            response.getWriter().println(makeWatch(chrono));
         } else {
             HttpSession httpSession = request.getSession();
             if ("1".equals(httpSession.getAttribute("chrono_authenticated"))) {
@@ -129,8 +130,9 @@ public class ChronoServlet extends HttpServlet {
             String key = keys.next();
             Chronometer chrono = chronometers.get(key);
             items[i] = new Div("select_item").child(
-                    new Div("select_text").content(chrono.toString()),
-                    new Div("select_text select_button").content(locale.chrono.see),
+                    new Div("select_text").content(chrono.name()),
+                    new Div("select_text select_button").content(locale.chrono.watch).
+                    attribute("onClick", "location.href='chrono?watch=1&id=" + key + "'"),
                     new Div("select_text select_button").content(locale.chrono.control)
             );
         }
@@ -182,6 +184,29 @@ public class ChronoServlet extends HttpServlet {
                                 attribute("type", "hidden").
                                 attribute("value", "1")
                         )
+                )
+        ).toHTML();
+    }
+
+    private String makeWatch(Chronometer chrono) {
+        return new HTML().child(
+                new Head().child(
+                        new CSSLink("/static/chrono.css"),
+                        new Script().attribute("src", "/static/chrono.js")
+                ),
+                new Body().child(
+                        new Div("watch_chrono").attribute("id", "chrono").child(
+                                new Div("").child(
+                                        new Div("watch_text").content(chrono.name())
+                                ),
+                                new Div("").child(
+                                        new Div("watch_display").attribute("id", "display").content("3:00")
+                                ),
+                                new Div("").child(
+                                        new Div("watch_text").content("LAlaLaalalAlala")
+                                )
+                        ),
+                        new Script().content("readapt(); setInterval(readapt, 200);")
                 )
         ).toHTML();
     }

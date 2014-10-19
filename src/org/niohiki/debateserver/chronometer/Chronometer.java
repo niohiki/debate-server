@@ -93,8 +93,12 @@ public class Chronometer {
         alive = false;
     }
 
+    public String name() {
+        return teamA.name + " vs " + teamB.name;
+    }
+
     @Override
     public String toString() {
-        return teamA.name + " vs " + teamB.name;
+        return name();
     }
 }

@@ -41,7 +41,7 @@ public class ChronoTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         String key = getKey(rowIndex, chronometers.keySet().iterator());
         if (columnIndex == 0) {
-            return chronometers.get(key).toString();
+            return chronometers.get(key).name();
         } else if (columnIndex == 1) {
             return key;
         } else {
