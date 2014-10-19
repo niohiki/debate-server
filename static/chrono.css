@@ -1,7 +1,7 @@
 body{
     background-color: white;
 }
-.main {
+.select_list {
     width: 70%;
     background-color: white;
     padding: 10px;
@@ -42,4 +42,33 @@ body{
 }
 .password_text{
     padding: 10px;
+}
+.new_form{
+    width: 50%;
+    background-color: #99cc00;
+    padding: 10px;
+    margin: 10px;
+    overflow: hidden;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.new_select{
+    display: inline-block;
+    font: sans-serif;
+    font-family: Verdana;
+    font-variant: small-caps;
+    font-size: 200%;
+    width: 30%;
+    float: left;
+}
+.new_button{ 
+    font-family: Verdana;
+    font-variant: small-caps;
+    font-size: 200%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    float: right;
 }

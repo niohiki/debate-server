@@ -2,8 +2,8 @@
 <locale>
     <app>
         <title>Servidor de debate Agade</title>
-        <passwordinput>Contraseña maestra</passwordinput>
-        <passwordinputchrono>Contraseña de cronometro</passwordinputchrono>
+        <passwordinputscore>Contraseña para puntuaciones</passwordinputscore>
+        <passwordinputchrono>Contraseña para cronometro</passwordinputchrono>
         <okbutton>Aceptar</okbutton>
     </app>
     <ipinfo>
@@ -13,6 +13,7 @@
     </ipinfo>
     <chrono>
         <newchrono>Nuevo</newchrono>
+        <newsubmit>Ok</newsubmit>
         <see>Ver</see>
         <control>Control</control>
     </chrono>
