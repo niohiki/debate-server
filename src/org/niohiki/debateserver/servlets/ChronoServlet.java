@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.niohiki.debateserver.Configuration;
+import org.niohiki.debateserver.DebateSession;
+import org.niohiki.debateserver.DebateSession.Teams.Team;
 import org.niohiki.debateserver.Locale;
 import org.niohiki.debateserver.chronometer.Chronometer;
 import org.niohiki.debateserver.html.Body;
@@ -22,26 +24,26 @@ import org.niohiki.debateserver.html.Form;
 import org.niohiki.debateserver.html.HTML;
 import org.niohiki.debateserver.html.Head;
 import org.niohiki.debateserver.html.Input;
+import org.niohiki.debateserver.html.Option;
+import org.niohiki.debateserver.html.Select;
 import org.niohiki.debateserver.html.Tag;
 
 public class ChronoServlet extends HttpServlet {
 
     private final HashMap<String, Chronometer> chronometers;
     private final Configuration configuration;
+    private final DebateSession debateSession;
     private final Locale locale;
     private final String md5password;
     private final SecureRandom random;
 
-    public ChronoServlet(Configuration conf, Locale loc, String md5pass) {
+    public ChronoServlet(Configuration conf, DebateSession session, Locale loc, String md5pass) {
         configuration = conf;
+        debateSession = session;
         locale = loc;
         md5password = md5pass;
         random = new SecureRandom();
         chronometers = new HashMap<>();
-        Chronometer chronometer = new Chronometer(conf);
-        chronometer.mainReset();
-        chronometer.mainRun();
-        chronometers.put("ajaj", chronometer);
     }
 
     @Override
@@ -65,7 +67,12 @@ public class ChronoServlet extends HttpServlet {
             HttpSession httpSession = request.getSession();
             if ("1".equals(httpSession.getAttribute("chrono_authenticated"))) {
                 if ("1".equals(request.getParameter("create"))) {
-                    Chronometer newChronometer = new Chronometer(configuration);
+                    Team teamA = debateSession.teams.get(
+                            Integer.parseInt(request.getParameter("teama")));
+                    Team teamB = debateSession.teams.get(
+                            Integer.parseInt(request.getParameter("teamb")));
+                    Chronometer newChronometer = new Chronometer(configuration,
+                            teamA, teamB);
                     String id;
                     do {
                         id = new BigInteger(130, random).toString(32);
@@ -121,7 +128,7 @@ public class ChronoServlet extends HttpServlet {
             String key = keys.next();
             Chronometer chrono = chronometers.get(key);
             items[i] = new Div("select_item").child(
-                    new Div("select_text").content(key),
+                    new Div("select_text").content(chrono.toString()),
                     new Div("select_text select_button").content(locale.chrono.see),
                     new Div("select_text select_button").content(locale.chrono.control)
             );
@@ -131,7 +138,7 @@ public class ChronoServlet extends HttpServlet {
                         new CSSLink("/static/chrono.css")
                 ),
                 new Body().child(
-                        new Div("main").child(items)
+                        new Div("select_list").child(items)
                 )
         ).toHTML();
     }
@@ -153,15 +160,25 @@ public class ChronoServlet extends HttpServlet {
     }
 
     private String makeNew() {
+        Tag[] teamOptions = new Tag[debateSession.teams.number];
+        for (int i = 0; i < teamOptions.length; i++) {
+            teamOptions[i] = new Option(Integer.toString(i), debateSession.teams.get(i).name);
+        }
         return new HTML().child(
                 new Head().child(new CSSLink("/static/chrono.css")),
                 new Body().child(
-                        new Form("post", "chrono").attribute("class", "password_form").child(
-                                new Input().
-                                attribute("name", "name").attribute("type", "text").
-                                attribute("value", "").attribute("class", "password_text"),
-                                new Input().
-                                attribute("name", "create").attribute("type", "hidden").
+                        new Form("post", "chrono").attribute("class", "new_form").child(
+                                new Select("teama").attribute("class", "new_select").child(
+                                        teamOptions
+                                ),
+                                new Select("teamb").attribute("class", "new_select").child(
+                                        teamOptions
+                                ),
+                                new Input().attribute("type", "submit").
+                                attribute("value", locale.chrono.newSubmit).
+                                attribute("class", "new_button"),
+                                new Input().attribute("name", "create").
+                                attribute("type", "hidden").
                                 attribute("value", "1")
                         )
                 )

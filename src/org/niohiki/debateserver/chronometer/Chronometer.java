@@ -1,7 +1,7 @@
 package org.niohiki.debateserver.chronometer;
 
 import org.niohiki.debateserver.Configuration;
-import org.niohiki.debateserver.Session;
+import org.niohiki.debateserver.DebateSession.Teams.Team;
 
 public class Chronometer {
 
@@ -15,9 +15,13 @@ public class Chronometer {
     private boolean alive;
     private int stance;
     private final Configuration configuration;
+    private final Team teamA;
+    private final Team teamB;
 
-    public Chronometer(Configuration conf) {
+    public Chronometer(Configuration conf, Team a, Team b) {
         configuration = conf;
+        teamA = a;
+        teamB = b;
         stance = 0;
         alive = true;
         mainRunning = false;
@@ -32,6 +36,9 @@ public class Chronometer {
                 long delta = currentTimeNanos - lastTimeNanos;
                 if (mainRunning) {
                     mainTimeNanos -= delta;
+                }
+                if (secondaryRunning) {
+                    secondaryTimeNanos += delta;
                 }
                 try {
                     Thread.sleep(0, sleepTimeNanos);
@@ -84,5 +91,10 @@ public class Chronometer {
 
     public synchronized void kill() {
         alive = false;
+    }
+
+    @Override
+    public String toString() {
+        return teamA.name + " vs " + teamB.name;
     }
 }

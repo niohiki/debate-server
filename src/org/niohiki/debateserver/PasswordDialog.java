@@ -12,8 +12,8 @@ public class PasswordDialog extends javax.swing.JDialog {
         initComponents();
     }
     
-    public String getPasswordMD5() throws NoSuchAlgorithmException{
-        return new String(MessageDigest.getInstance("MD5").digest(new String(password.getPassword()).getBytes()));
+    public String getPasswordScoreMD5() throws NoSuchAlgorithmException{
+        return new String(MessageDigest.getInstance("MD5").digest(new String(passwordScore.getPassword()).getBytes()));
     }
     
     public String getPasswordChronoMD5() throws NoSuchAlgorithmException{
@@ -25,7 +25,7 @@ public class PasswordDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        password = new javax.swing.JPasswordField();
+        passwordScore = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         passwordChrono = new javax.swing.JPasswordField();
@@ -34,7 +34,7 @@ public class PasswordDialog extends javax.swing.JDialog {
         setTitle(parent.locale.app.title);
         setResizable(false);
 
-        jLabel1.setText(parent.locale.app.passwordInput);
+        jLabel1.setText(parent.locale.app.passwordInputScore);
 
         jButton1.setText(parent.locale.app.okButton);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -52,7 +52,7 @@ public class PasswordDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(password)
+                    .addComponent(passwordScore)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 210, Short.MAX_VALUE)
                         .addComponent(jButton1))
@@ -70,7 +70,7 @@ public class PasswordDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwordScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -84,7 +84,7 @@ public class PasswordDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(password.getPassword().length != 0 && passwordChrono.getPassword().length != 0){
+        if(passwordScore.getPassword().length != 0 && passwordChrono.getPassword().length != 0){
             dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -94,7 +94,7 @@ public class PasswordDialog extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField password;
     private javax.swing.JPasswordField passwordChrono;
+    private javax.swing.JPasswordField passwordScore;
     // End of variables declaration//GEN-END:variables
 }

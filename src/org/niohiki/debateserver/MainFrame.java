@@ -26,9 +26,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     public final Locale locale;
     public final Configuration configuration;
-    public final Session session;
+    public final DebateSession session;
 
-    public final String passwordMD5;
+    public final String passwordScoreMD5;
     public final String passwordChronoMD5;
 
     private Server server;
@@ -45,10 +45,10 @@ public class MainFrame extends javax.swing.JFrame {
         if (false) {
             PasswordDialog pd = new PasswordDialog(this);
             pd.setVisible(true);
-            passwordMD5 = pd.getPasswordMD5();
+            passwordScoreMD5 = pd.getPasswordScoreMD5();
             passwordChronoMD5 = pd.getPasswordChronoMD5();
         } else {
-            passwordMD5 = new String(MessageDigest.getInstance("MD5").digest("ganso".getBytes()));
+            passwordScoreMD5 = new String(MessageDigest.getInstance("MD5").digest("ganso".getBytes()));
             passwordChronoMD5 = new String(MessageDigest.getInstance("MD5").digest("ganso".getBytes()));
         }
 
@@ -98,11 +98,11 @@ public class MainFrame extends javax.swing.JFrame {
         return new Configuration(dBuilder.parse(new File(Names.configurationFile)));
     }
 
-    private Session loadSession() throws
+    private DebateSession loadSession() throws
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new Session(dBuilder.parse(new File(Names.sessionFile)));
+        return new DebateSession(dBuilder.parse(new File(Names.sessionFile)));
     }
     // </editor-fold>
 
@@ -113,7 +113,7 @@ public class MainFrame extends javax.swing.JFrame {
         servletHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletHandler.setContextPath("/");
         servletHandler.addServlet(new ServletHolder(
-                new ChronoServlet(configuration, locale, passwordChronoMD5)),
+                new ChronoServlet(configuration, session, locale, passwordChronoMD5)),
                 Names.chronoContext);
 
         HandlerList handlers = new HandlerList();

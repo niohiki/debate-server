@@ -6,11 +6,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class Session {
+public class DebateSession {
 
     public final Teams teams;
 
-    public Session(Document doc) {
+    public DebateSession(Document doc) {
         Element root = (Element) doc.getElementsByTagName("session").item(0);
         teams = new Teams((Element) root.getElementsByTagName("teams").item(0));
     }
