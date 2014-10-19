@@ -72,3 +72,25 @@ body{
     width: 25%;
     float: right;
 }
+.watch_chrono{
+    font-family: Verdana;
+    font-variant: small-caps;
+    text-align: center;
+    background-color: #99cc00;
+    padding: 10px;
+}
+.watch_text{
+    text-align: center;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 5px
+}
+.watch_display{
+    display: inline-block; 
+    margin: 10px; 
+    text-align: center; 
+    background-color: white;
+    padding: 30px; 
+    border-radius: 10px;
+}

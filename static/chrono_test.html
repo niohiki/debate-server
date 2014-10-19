@@ -1,21 +1,29 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="/static/chrono.css"/>
+        <script src="/static/chrono.js"></script>
     </head>
-    <body>
-
-        <form method="POST" class="new_form">
-            <select class="new_select">
-                <option>USC</option>
-                <option>UDC</option>
-                <option>JFK</option>
-            </select>
-            <select class="new_select">
-                <option>USC</option>
-                <option>UDC</option>
-                <option>JFK</option>
-            </select>
-            <input type="submit" value="OK" class="new_button">
-        </form>
+    <body id="body">
+        <div class="watch_chrono" id="chrono">
+            <div>
+                <div class="watch_text">
+                    Jesus vs Satan
+                </div>
+            </div>
+            <div>
+                <div class="watch_display" id="display">
+                    3:00
+                </div>
+            </div>
+            <div>
+                <div class="watch_text">
+                    1a A favor
+                </div>
+            </div>
+        </div>
+        <script>
+            readapt();
+            setInterval(readapt, 200);
+        </script>
     </body>
 </html>
