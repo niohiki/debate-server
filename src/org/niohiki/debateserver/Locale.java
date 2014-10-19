@@ -60,8 +60,8 @@ public class Locale {
             ipLabel = e.getElementsByTagName("iplabel").item(0).getTextContent();
         }
     }
-    
-    public class ChronoInfo{
+
+    public class ChronoInfo {
 
         public final String tabTitle;
         public final String chronoName;
@@ -69,6 +69,8 @@ public class Locale {
         public final String mainRunning;
         public final String secondaryRunning;
         public final String stance;
+        public final String toggleMain;
+        public final String toggleSecondary;
 
         public ChronoInfo(Element e) {
             tabTitle = e.getElementsByTagName("tabtitle").item(0).getTextContent();
@@ -77,6 +79,8 @@ public class Locale {
             mainRunning = e.getElementsByTagName("mainrunning").item(0).getTextContent();
             secondaryRunning = e.getElementsByTagName("secondaryrunning").item(0).getTextContent();
             stance = e.getElementsByTagName("stance").item(0).getTextContent();
+            toggleMain = e.getElementsByTagName("togglemain").item(0).getTextContent();
+            toggleSecondary = e.getElementsByTagName("togglesecondary").item(0).getTextContent();
         }
     }
 }

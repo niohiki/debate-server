@@ -18,6 +18,8 @@
         <stance>Postura</stance>
         <mainrunning>Ppal. en marcha</mainrunning>
         <secondaryrunning>Sec. en marcha</secondaryrunning>
+        <togglemain>Cambiar principal</togglemain>
+        <togglesecondary>Cambiar secundario</togglesecondary>
     </chronoinfo>
     <chrono>
         <newchrono>Nuevo</newchrono>

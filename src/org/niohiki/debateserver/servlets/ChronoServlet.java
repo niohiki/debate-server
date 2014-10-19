@@ -76,7 +76,6 @@ public class ChronoServlet extends HttpServlet {
                     Chronometer newChronometer = new Chronometer(configuration,
                             teamA, teamB);
                     newChronometer.mainReset();
-                    newChronometer.mainRun();
                     String id;
                     do {
                         id = new BigInteger(130, random).toString(32);

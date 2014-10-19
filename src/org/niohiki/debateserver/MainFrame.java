@@ -151,6 +151,8 @@ public class MainFrame extends javax.swing.JFrame {
         chronoPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         chronoTable = new javax.swing.JTable();
+        toggleMain = new javax.swing.JButton();
+        toggleSecondary = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(locale.app.title);
@@ -201,7 +203,26 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         chronoTable.setModel(chronoTableModel);
+        chronoTable.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                chronoTableMouseMoved(evt);
+            }
+        });
         jScrollPane2.setViewportView(chronoTable);
+
+        toggleMain.setText(locale.chronoInfo.toggleMain);
+        toggleMain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleMainActionPerformed(evt);
+            }
+        });
+
+        toggleSecondary.setText(locale.chronoInfo.toggleSecondary);
+        toggleSecondary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleSecondaryActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout chronoPanelLayout = new javax.swing.GroupLayout(chronoPanel);
         chronoPanel.setLayout(chronoPanelLayout);
@@ -209,14 +230,24 @@ public class MainFrame extends javax.swing.JFrame {
             chronoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chronoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                .addGroup(chronoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                    .addGroup(chronoPanelLayout.createSequentialGroup()
+                        .addComponent(toggleMain)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(toggleSecondary)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         chronoPanelLayout.setVerticalGroup(
             chronoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chronoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(chronoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(toggleMain)
+                    .addComponent(toggleSecondary))
                 .addContainerGap())
         );
 
@@ -240,6 +271,40 @@ public class MainFrame extends javax.swing.JFrame {
         chronoTableModel.fireTableDataChanged();
     }//GEN-LAST:event_tabChanged
 
+    private void toggleMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleMainActionPerformed
+        try {
+            String key = (String) chronoTableModel.getValueAt(chronoTable.getSelectedRow(), 1);
+            Chronometer chrono = chronometers.get(key);
+            if (chrono.isMainRunning()) {
+                chrono.mainReset();
+            } else {
+                chrono.mainRun();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        chronoTableModel.fireTableDataChanged();
+    }//GEN-LAST:event_toggleMainActionPerformed
+
+    private void toggleSecondaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleSecondaryActionPerformed
+        try {
+            String key = (String) chronoTableModel.getValueAt(chronoTable.getSelectedRow(), 1);
+            Chronometer chrono = chronometers.get(key);
+            if (chrono.isSecondaryRunning()) {
+                chrono.secondaryStop();
+            } else {
+                chrono.secondaryStart();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        chronoTableModel.fireTableDataChanged();
+    }//GEN-LAST:event_toggleSecondaryActionPerformed
+
+    private void chronoTableMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chronoTableMouseMoved
+        
+    }//GEN-LAST:event_chronoTableMouseMoved
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel chronoPanel;
@@ -250,5 +315,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JButton toggleMain;
+    private javax.swing.JButton toggleSecondary;
     // End of variables declaration//GEN-END:variables
 }
