@@ -6,12 +6,14 @@ import org.w3c.dom.Element;
 public class Locale {
 
     public final IpInfo ipInfo;
+    public final ChronoInfo chronoInfo;
     public final App app;
     public final Chrono chrono;
 
     public Locale(Document doc) {
         Element root = (Element) doc.getElementsByTagName("locale").item(0);
         ipInfo = new IpInfo((Element) root.getElementsByTagName("ipinfo").item(0));
+        chronoInfo = new ChronoInfo((Element) root.getElementsByTagName("chronoinfo").item(0));
         app = new App((Element) root.getElementsByTagName("app").item(0));
         chrono = new Chrono((Element) root.getElementsByTagName("chrono").item(0));
     }
@@ -56,6 +58,16 @@ public class Locale {
             tabTitle = e.getElementsByTagName("tabtitle").item(0).getTextContent();
             firewallInfo = e.getElementsByTagName("firewallinfo").item(0).getTextContent();
             ipLabel = e.getElementsByTagName("iplabel").item(0).getTextContent();
+        }
+    }
+    
+    public class ChronoInfo{
+        
+
+        public final String tabTitle;
+
+        public ChronoInfo(Element e) {
+            tabTitle = e.getElementsByTagName("tabtitle").item(0).getTextContent();
         }
     }
 }

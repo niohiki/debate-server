@@ -136,6 +136,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ipTextArea = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(locale.app.title);
@@ -176,6 +177,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         tabbedPane.addTab(locale.ipInfo.tabTitle, ipInfoPanel);
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 441, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 291, Short.MAX_VALUE)
+        );
+
+        tabbedPane.addTab("tab2", jPanel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -195,6 +209,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel ipInfoPanel;
     private javax.swing.JTextArea ipTextArea;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables

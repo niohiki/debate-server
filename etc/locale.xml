@@ -11,6 +11,9 @@
         <iplabel>IPs para esta maquina</iplabel>
         <firewallinfo>El firewall debe permitir que Java acepte conexiones entrantes</firewallinfo>
     </ipinfo>
+    <chronoinfo>
+        <tabtitle>Cronometros</tabtitle>
+    </chronoinfo>
     <chrono>
         <newchrono>Nuevo</newchrono>
         <newsubmit>Ok</newsubmit>
