@@ -20,6 +20,11 @@
         <copy todir="${dist.dir}/">
             <fileset dir="startup/"/>
         </copy>
+        <copy todir="${dist.dir}/src/">
+            <fileset dir="src/"/>
+        </copy>
+        <copy file="LICENSE" tofile="${dist.dir}/LICENSE.txt"/>
+        <copy file="README.md" tofile="${dist.dir}/README.txt" overwrite="true"/>
     </target>
     <!--
 
