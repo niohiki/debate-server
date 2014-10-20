@@ -24,12 +24,32 @@ public class Locale {
         public final String watch;
         public final String control;
         public final String newSubmit;
+        
+        public final String controlMain;
+        public final String controlSecondary;
+        public final String controlRun;
+        public final String controlPause;
+        public final String controlStart;
+        public final String controlStop;
+        public final String controlReset;
+        public final String controlSwap;
+        public final String controlNext;
+        
 
         public Chrono(Element e) {
             newChrono = e.getElementsByTagName("newchrono").item(0).getTextContent();
             newSubmit = e.getElementsByTagName("newsubmit").item(0).getTextContent();
             watch = e.getElementsByTagName("watch").item(0).getTextContent();
             control = e.getElementsByTagName("control").item(0).getTextContent();
+            controlMain = e.getElementsByTagName("controlmain").item(0).getTextContent();
+            controlSecondary = e.getElementsByTagName("controlsecondary").item(0).getTextContent();
+            controlRun = e.getElementsByTagName("controlrun").item(0).getTextContent();
+            controlPause = e.getElementsByTagName("controlpause").item(0).getTextContent();
+            controlStart = e.getElementsByTagName("controlstart").item(0).getTextContent();
+            controlStop = e.getElementsByTagName("controlstop").item(0).getTextContent();
+            controlReset = e.getElementsByTagName("controlreset").item(0).getTextContent();
+            controlSwap = e.getElementsByTagName("controlswap").item(0).getTextContent();
+            controlNext = e.getElementsByTagName("controlnext").item(0).getTextContent();
         }
     }
 

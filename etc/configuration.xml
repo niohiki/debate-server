@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <stances>
-        <stance time="300">Introduccion - A favor</stance>
+        <stance time="30">Introduccion - A favor</stance>
         <stance time="300">Introduccion - En contra</stance>
         <stance time="300">1ª Refutacion - A favor</stance>
         <stance time="300">1ª Refutacion - En contra</stance>

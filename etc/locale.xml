@@ -26,5 +26,14 @@
         <newsubmit>Ok</newsubmit>
         <watch>Ver</watch>
         <control>Control</control>
+        <controlmain>principal</controlmain>
+        <controlsecondary>extra</controlsecondary>
+        <controlrun>Iniciar</controlrun>
+        <controlpause>Pausa</controlpause>
+        <controlstart>Iniciar</controlstart>
+        <controlstop>Detener</controlstop>
+        <controlreset>Reset</controlreset>
+        <controlswap>Intercambiar</controlswap>
+        <controlnext>Siguiente</controlnext>
     </chrono>
 </locale>

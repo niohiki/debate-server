@@ -58,9 +58,14 @@ public class Chronometer {
     }
 
     public synchronized void mainReset() {
-        mainRunning = false;
-        mainTimeNanos = ((long) configuration.stances.get(stance).time)
-                * 1000 * 1000 * 1000;
+        mainReset(((long) configuration.stances.get(stance).time)
+                * 1000 * 1000 * 1000);
+    }
+
+    public synchronized void mainReset(long nanos) {
+        mainTimeNanos = nanos;
+        secondaryStop();
+        mainPause();
     }
 
     public synchronized void secondaryStart() {
@@ -83,6 +88,7 @@ public class Chronometer {
     public synchronized void setStance(int i) {
         if (i >= 0 && i < configuration.stances.number) {
             stance = i;
+            mainReset();
         }
     }
 
@@ -92,6 +98,22 @@ public class Chronometer {
 
     public synchronized void kill() {
         alive = false;
+    }
+
+    public synchronized void mainToggle() {
+        if (mainRunning) {
+            mainPause();
+        } else {
+            mainRun();
+        }
+    }
+
+    public synchronized void secondaryToggle() {
+        if (secondaryRunning) {
+            secondaryStop();
+        } else {
+            secondaryStart();
+        }
     }
 
     public boolean isMainRunning() {
@@ -108,6 +130,10 @@ public class Chronometer {
 
     public String stance() {
         return configuration.stances.get(stance).name;
+    }
+
+    public int getStanceIndex() {
+        return stance;
     }
 
     @Override

@@ -95,23 +95,38 @@ public class ChronoServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().println(makeChronoList());
         } else if ("1".equals(request.getParameter("get"))) {
-            Chronometer chrono = chronometers.get(request.getParameter("id"));
-            StringBuilder JSON = new StringBuilder("");
-            JSON.append("{\n").
-                    append("\t\"stance\" : \"").append(chrono.stance()).append("\",\n").
-                    append("\t\"name\" : \"").append(chrono.name()).append("\",\n").
-                    append("\t\"mainTime\" : ").append(chrono.mainTimeNanos()).append(",\n").
-                    append("\t\"secondaryTime\" : ").append(chrono.secondaryTimeNanos()).append("\n").
-                    append("}");
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().println(JSON.toString());
+            String key = request.getParameter("id");
+            Chronometer chrono = chronometers.get(key);
+            if (chrono != null) {
+                String mainTag = chrono.isMainRunning()
+                        ? locale.chrono.controlPause : locale.chrono.controlRun;
+                String secondaryTag = chrono.isSecondaryRunning()
+                        ? locale.chrono.controlStop : locale.chrono.controlStart;
+                String resetTime = Integer.toString(configuration.stances.get(chrono.getStanceIndex()).time);
+                StringBuilder JSON = new StringBuilder("");
+                JSON.append("{\n").
+                        append("\t\"stance\" : \"").append(chrono.stance()).append("\",\n").
+                        append("\t\"name\" : \"").append(chrono.name()).append("\",\n").
+                        append("\t\"mainTag\" : \"").append(mainTag).append("\",\n").
+                        append("\t\"secondaryTag\" : \"").append(secondaryTag).append("\",\n").
+                        append("\t\"resetTime\" : ").append(resetTime).append(",\n").
+                        append("\t\"mainTime\" : ").append(chrono.mainTimeNanos()).append(",\n").
+                        append("\t\"secondaryTime\" : ").append(chrono.secondaryTimeNanos()).append("\n").
+                        append("}");
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().println(JSON.toString());
+            }
         } else if ("1".equals(request.getParameter("watch"))) {
             String key = request.getParameter("id");
             Chronometer chrono = chronometers.get(key);
-            response.setContentType("text/html");
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().println(makeWatch(key, chrono));
+            if (chrono != null) {
+                response.setContentType("text/html");
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().println(makeWatch(key, chrono));
+            } else {
+                response.sendRedirect("/chrono");
+            }
         } else {
             HttpSession httpSession = request.getSession();
             if ("1".equals(httpSession.getAttribute("chrono_authenticated"))) {
@@ -119,6 +134,37 @@ public class ChronoServlet extends HttpServlet {
                     response.setContentType("text/html");
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.getWriter().println(makeNew());
+                } else if ("1".equals(request.getParameter("control"))) {
+                    String key = request.getParameter("id");
+                    Chronometer chrono = chronometers.get(key);
+                    if (chrono != null) {
+                        if ("1".equals(request.getParameter("manage"))) {
+                            if ("main".equals(request.getParameter("type"))) {
+                                if ("toggle".equals(request.getParameter("action"))) {
+                                    chrono.mainToggle();
+                                } else if ("reset".equals(request.getParameter("action"))) {
+                                    String time = request.getParameter("time");
+                                    if (time != null) {
+                                        chrono.mainReset(Long.parseLong(time) * 1000 * 1000 * 1000);
+                                    }
+                                }
+                            } else if ("secondary".equals(request.getParameter("type"))) {
+                                if ("toggle".equals(request.getParameter("action"))) {
+                                    chrono.secondaryToggle();
+                                }
+                            } else if ("stance".equals(request.getParameter("type"))) {
+                                if ("next".equals(request.getParameter("action"))) {
+                                    chrono.nextStance();
+                                }
+                            }
+                        } else {
+                            response.setContentType("text/html");
+                            response.setStatus(HttpServletResponse.SC_OK);
+                            response.getWriter().println(makeControl(key, chrono));
+                        }
+                    } else {
+                        response.sendRedirect("/chrono");
+                    }
                 }
             } else {
                 request.getSession().setAttribute("login_redirection",
@@ -145,7 +191,8 @@ public class ChronoServlet extends HttpServlet {
                     new Div("select_text").content(chrono.name()),
                     new Div("select_text select_button").content(locale.chrono.watch).
                     attribute("onClick", "location.href='chrono?watch=1&id=" + key + "'"),
-                    new Div("select_text select_button").content(locale.chrono.control)
+                    new Div("select_text select_button").content(locale.chrono.control).
+                    attribute("onClick", "location.href='chrono?control=1&id=" + key + "'")
             );
         }
         return new HTML().child(
@@ -221,6 +268,38 @@ public class ChronoServlet extends HttpServlet {
                         new Script().content(
                                 "readapt(\"" + id + "\"); "
                                 + "setInterval(function(){readapt(\"" + id + "\");}, 200);")
+                )
+        ).toHTML();
+    }
+
+    private String makeControl(String id, Chronometer chrono) {
+        return new HTML().child(
+                new Head().child(
+                        new CSSLink("/static/chrono.css"),
+                        new Script().attribute("src", "/static/chrono.js")
+                ),
+                new Body().child(
+                        new Div("control_block").child(
+                                new Div("control_button control_button_big").child(
+                                        new Div("").attribute("id", "main").content(locale.chrono.controlRun),
+                                        new Div("").content(locale.chrono.controlMain)
+                                ).attribute("onClick", "control('" + id + "','type=main&action=toggle')"),
+                                new Div("control_button control_button_big").child(
+                                        new Div("").attribute("id", "secondary").content(locale.chrono.controlStart),
+                                        new Div("").content(locale.chrono.controlSecondary)
+                                ).attribute("onClick", "control('" + id + "','type=secondary&action=toggle')")
+                        ),
+                        new Div("control_block").child(
+                                new Div("control_button").content(locale.chrono.controlReset).
+                                attribute("onClick", "controlReset('" + id + "')"),
+                                new Input().attribute("id", "reset").attribute("class", "control_button control_text")
+                        ),
+                        new Div("control_block").child(
+                                new Div("control_button").content(locale.chrono.controlNext).
+                                attribute("onClick", "control('" + id + "','type=stance&action=next')"),
+                                new Div("control_button").content(locale.chrono.controlSwap)
+                        ),
+                        new Script().content("controlTags(\"" + id + "\"); ")
                 )
         ).toHTML();
     }

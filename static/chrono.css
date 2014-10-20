@@ -26,6 +26,7 @@ body{
     font: sans-serif;
     font-family: Verdana;
     font-variant: small-caps;
+    font-size: 250%;
     cursor: default;
 }
 .select_button{
@@ -93,4 +94,30 @@ body{
     background-color: white;
     padding: 30px; 
     border-radius: 10px;
+}
+.control_block{
+    margin: 20px;
+    background-color: #99cc00;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.control_button{
+    margin: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: inline-block;
+    background-color: white;
+    width: 40%;
+    font-family: Verdana;
+    font-variant: small-caps;
+    font-size: 200%;
+    text-align: center;
+    cursor: pointer;
+}
+.control_button_big{
+    font-size: 350%
+}
+.control_text{
+    cursor: text;
 }
