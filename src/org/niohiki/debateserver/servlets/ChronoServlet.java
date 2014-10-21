@@ -81,6 +81,7 @@ public class ChronoServlet extends HttpServlet {
                         id = new BigInteger(130, random).toString(32);
                     } while (chronometers.keySet().contains(id));
                     chronometers.put(id, newChronometer);
+                    request.getSession().setAttribute("chrono" + id, "1");
                     response.sendRedirect("/chrono");
                 }
             }
@@ -137,40 +138,44 @@ public class ChronoServlet extends HttpServlet {
                 } else if ("1".equals(request.getParameter("control"))) {
                     String key = request.getParameter("id");
                     Chronometer chrono = chronometers.get(key);
-                    if (chrono != null) {
-                        if ("1".equals(request.getParameter("manage"))) {
-                            if ("main".equals(request.getParameter("type"))) {
-                                if ("toggle".equals(request.getParameter("action"))) {
-                                    chrono.mainToggle();
-                                } else if ("reset".equals(request.getParameter("action"))) {
-                                    String time = request.getParameter("time");
-                                    if (time != null) {
-                                        chrono.mainReset(Long.parseLong(time) * 1000 * 1000 * 1000);
+                    if ("1".equals(httpSession.getAttribute("chrono" + key))) {
+                        if (chrono != null) {
+                            if ("1".equals(request.getParameter("manage"))) {
+                                if ("main".equals(request.getParameter("type"))) {
+                                    if ("toggle".equals(request.getParameter("action"))) {
+                                        chrono.mainToggle();
+                                    } else if ("reset".equals(request.getParameter("action"))) {
+                                        String time = request.getParameter("time");
+                                        if (time != null) {
+                                            chrono.mainReset(Long.parseLong(time) * 1000 * 1000 * 1000);
+                                        }
+                                    }
+                                } else if ("secondary".equals(request.getParameter("type"))) {
+                                    if ("toggle".equals(request.getParameter("action"))) {
+                                        chrono.secondaryToggle();
+                                    }
+                                } else if ("stance".equals(request.getParameter("type"))) {
+                                    if ("next".equals(request.getParameter("action"))) {
+                                        chrono.nextStance();
+                                    } else if ("set".equals(request.getParameter("action"))) {
+                                        String i = request.getParameter("i");
+                                        if (i != null) {
+                                            chrono.setStance(Integer.parseInt(i));
+                                        }
                                     }
                                 }
-                            } else if ("secondary".equals(request.getParameter("type"))) {
-                                if ("toggle".equals(request.getParameter("action"))) {
-                                    chrono.secondaryToggle();
-                                }
-                            } else if ("stance".equals(request.getParameter("type"))) {
-                                if ("next".equals(request.getParameter("action"))) {
-                                    chrono.nextStance();
-                                } else if ("set".equals(request.getParameter("action"))) {
-                                    String i = request.getParameter("i");
-                                    if (i != null) {
-                                        chrono.setStance(Integer.parseInt(i));
+                                if ("sides".equals(request.getParameter("type"))) {
+                                    if ("swap".equals(request.getParameter("action"))) {
+                                        chrono.swapTeamSides();
                                     }
                                 }
-                            }
-                            if ("sides".equals(request.getParameter("type"))) {
-                                if ("swap".equals(request.getParameter("action"))) {
-                                    chrono.swapTeamSides();
-                                }
+                            } else {
+                                response.setContentType("text/html");
+                                response.setStatus(HttpServletResponse.SC_OK);
+                                response.getWriter().println(makeControl(key, chrono));
                             }
                         } else {
-                            response.setContentType("text/html");
-                            response.setStatus(HttpServletResponse.SC_OK);
-                            response.getWriter().println(makeControl(key, chrono));
+                            response.sendRedirect("/chrono");
                         }
                     } else {
                         response.sendRedirect("/chrono");
