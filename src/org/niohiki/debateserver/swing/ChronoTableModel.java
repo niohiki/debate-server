@@ -62,11 +62,15 @@ public class ChronoTableModel extends AbstractTableModel {
     }
 
     private String getKey(int i, Iterator<String> it) {
-        String key = it.next();
-        if (i == 0) {
-            return key;
+        if (it.hasNext()) {
+            String key = it.next();
+            if (i == 0) {
+                return key;
+            } else {
+                return getKey(i - 1, it);
+            }
         } else {
-            return getKey(i - 1, it);
+            return null;
         }
     }
 }

@@ -20,6 +20,7 @@
         <secondaryrunning>Sec. en marcha</secondaryrunning>
         <togglemain>Cambiar principal</togglemain>
         <togglesecondary>Cambiar secundario</togglesecondary>
+        <delete>Borrar</delete>
     </chronoinfo>
     <chrono>
         <newchrono>Nuevo</newchrono>

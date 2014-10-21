@@ -93,6 +93,7 @@ public class Locale {
         public final String stance;
         public final String toggleMain;
         public final String toggleSecondary;
+        public final String delete;
 
         public ChronoInfo(Element e) {
             tabTitle = e.getElementsByTagName("tabtitle").item(0).getTextContent();
@@ -103,6 +104,7 @@ public class Locale {
             stance = e.getElementsByTagName("stance").item(0).getTextContent();
             toggleMain = e.getElementsByTagName("togglemain").item(0).getTextContent();
             toggleSecondary = e.getElementsByTagName("togglesecondary").item(0).getTextContent();
+            delete = e.getElementsByTagName("delete").item(0).getTextContent();
         }
     }
 }
