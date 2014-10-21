@@ -112,7 +112,8 @@ public class ChronoServlet extends HttpServlet {
                         append("\t\"secondaryTag\" : \"").append(secondaryTag).append("\",\n").
                         append("\t\"resetTime\" : ").append(resetTime).append(",\n").
                         append("\t\"mainTime\" : ").append(chrono.mainTimeNanos()).append(",\n").
-                        append("\t\"secondaryTime\" : ").append(chrono.secondaryTimeNanos()).append("\n").
+                        append("\t\"secondaryTime\" : ").append(chrono.secondaryTimeNanos()).append(",\n").
+                        append("\t\"mainRunning\" : ").append(chrono.isMainRunning() ? "true" : "false").append("\n").
                         append("}");
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_OK);

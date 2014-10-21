@@ -30,6 +30,16 @@ function readapt(id) {
     document.getElementById("display").innerHTML = displayString;
     document.getElementById("name").innerHTML = answer.name;
     document.getElementById("stance").innerHTML = answer.stance;
+    if (answer.mainRunning) {
+        document.getElementById("display").style.border = '10px solid green';
+    } else {
+        document.getElementById("display").style.border = '10px solid transparent';
+    }
+    if (answer.mainTime > 0) {
+        document.getElementById("display").style.backgroundColor = 'white';
+    } else {
+        document.getElementById("display").style.backgroundColor = 'red';
+    }
 
     var display = document.getElementById("display");
     var chrono = document.getElementById("chrono");
