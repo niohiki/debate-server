@@ -321,9 +321,9 @@ public class ChronoServlet extends HttpServlet {
                                 new Input().attribute("id", "reset").attribute("class", "control_button control_text")
                         ),
                         new Div("control_block").child(
-                                new Div("control_button").content(locale.chrono.controlNext).
+                                new Div("control_button control_button_big").content(locale.chrono.controlNext).
                                 attribute("onClick", "control('" + id + "','type=stance&action=next')"),
-                                new Div("control_button").content(locale.chrono.controlSwap).
+                                new Div("control_button control_button_big").content(locale.chrono.controlSwap).
                                 attribute("onClick", "control('" + id + "','type=sides&action=swap')")
                         ),
                         new Div("control_block").child(
