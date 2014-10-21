@@ -4,21 +4,24 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class PasswordDialog extends javax.swing.JDialog {
+
     private final MainFrame parent;
-    
+
     public PasswordDialog(MainFrame parent) {
         super(parent, true);
         this.parent = parent;
         initComponents();
     }
-    
-    public String getPasswordScoreMD5() throws NoSuchAlgorithmException{
-        return new String(MessageDigest.getInstance("MD5").digest(new String(passwordScore.getPassword()).getBytes()));
+
+    public String getPasswordScoreMD5() throws NoSuchAlgorithmException {
+        return Utils.safeMD5(passwordScore.getPassword());
     }
-    
-    public String getPasswordChronoMD5() throws NoSuchAlgorithmException{
-        return new String(MessageDigest.getInstance("MD5").digest(new String(passwordChrono.getPassword()).getBytes()));
+
+    public String getPasswordChronoMD5() throws NoSuchAlgorithmException {
+        return Utils.safeMD5(passwordChrono.getPassword());
     }
+
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -84,7 +87,7 @@ public class PasswordDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(passwordScore.getPassword().length != 0 && passwordChrono.getPassword().length != 0){
+        if (passwordScore.getPassword().length != 0 && passwordChrono.getPassword().length != 0) {
             dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed

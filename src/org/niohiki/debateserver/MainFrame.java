@@ -94,21 +94,21 @@ public class MainFrame extends javax.swing.JFrame {
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new Locale(dBuilder.parse(new File(Names.localeFile)));
+        return new Locale(dBuilder.parse(new File(Utils.localeFile)));
     }
 
     private Configuration loadConfiguration() throws
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new Configuration(dBuilder.parse(new File(Names.configurationFile)));
+        return new Configuration(dBuilder.parse(new File(Utils.configurationFile)));
     }
 
     private DebateSession loadSession() throws
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new DebateSession(dBuilder.parse(new File(Names.sessionFile)));
+        return new DebateSession(dBuilder.parse(new File(Utils.sessionFile)));
     }
     // </editor-fold>
 
@@ -121,7 +121,7 @@ public class MainFrame extends javax.swing.JFrame {
         servletHandler.addServlet(new ServletHolder(
                 new ChronoServlet(configuration, session, locale,
                         chronometers, passwordChronoMD5)),
-                Names.chronoContext);
+                Utils.chronoContext);
 
         HandlerList handlers = new HandlerList();
         handlers.addHandler(staticHandler);

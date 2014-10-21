@@ -17,6 +17,7 @@ import org.niohiki.debateserver.Configuration.Stances.Stance;
 import org.niohiki.debateserver.DebateSession;
 import org.niohiki.debateserver.DebateSession.Teams.Team;
 import org.niohiki.debateserver.Locale;
+import org.niohiki.debateserver.Utils;
 import org.niohiki.debateserver.chronometer.Chronometer;
 import org.niohiki.debateserver.html.Body;
 import org.niohiki.debateserver.html.CSSLink;
@@ -53,10 +54,8 @@ public class ChronoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if ("1".equals(request.getParameter("login"))) {
-            String password = request.getParameter("password");
             try {
-                String md5try = new String(MessageDigest.getInstance("MD5").
-                        digest(password.getBytes()));
+                String md5try = Utils.safeMD5(request.getParameter("password").toCharArray());
                 if (md5try.equals(md5password)) {
                     request.getSession().setAttribute("chrono_authenticated", "1");
                     response.sendRedirect((String) request.getSession().
