@@ -53,15 +53,10 @@ public class MainFrame extends javax.swing.JFrame {
         chronometers = new HashMap<>();
         chronoTableModel = new ChronoTableModel(locale, chronometers);
 
-        if (false) {
-            PasswordDialog pd = new PasswordDialog(this);
-            pd.setVisible(true);
-            passwordScoreMD5 = pd.getPasswordScoreMD5();
-            passwordChronoMD5 = pd.getPasswordChronoMD5();
-        } else {
-            passwordScoreMD5 = new String(MessageDigest.getInstance("MD5").digest("ganso".getBytes()));
-            passwordChronoMD5 = new String(MessageDigest.getInstance("MD5").digest("ganso".getBytes()));
-        }
+        PasswordDialog pd = new PasswordDialog(this);
+        pd.setVisible(true);
+        passwordScoreMD5 = pd.getPasswordScoreMD5();
+        passwordChronoMD5 = pd.getPasswordChronoMD5();
 
         initComponents();
         setupIPArea();
