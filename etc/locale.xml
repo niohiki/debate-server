@@ -24,6 +24,7 @@
     <chrono>
         <newchrono>Nuevo</newchrono>
         <newsubmit>Ok</newsubmit>
+        <newformtitle>Seleccionar equipos</newformtitle>
         <watch>Ver</watch>
         <control>Control</control>
         <controlmain>principal</controlmain>

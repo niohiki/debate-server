@@ -21,6 +21,7 @@ public class Locale {
     public class Chrono {
 
         public final String newChrono;
+        public final String newFormTitle;
         public final String watch;
         public final String control;
         public final String newSubmit;
@@ -39,6 +40,7 @@ public class Locale {
         public Chrono(Element e) {
             newChrono = e.getElementsByTagName("newchrono").item(0).getTextContent();
             newSubmit = e.getElementsByTagName("newsubmit").item(0).getTextContent();
+            newFormTitle = e.getElementsByTagName("newformtitle").item(0).getTextContent();
             watch = e.getElementsByTagName("watch").item(0).getTextContent();
             control = e.getElementsByTagName("control").item(0).getTextContent();
             controlMain = e.getElementsByTagName("controlmain").item(0).getTextContent();

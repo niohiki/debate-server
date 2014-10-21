@@ -44,30 +44,42 @@ body{
 .password_text{
     padding: 10px;
 }
+.new_list{
+    text-align: center;
+}
 .new_form{
-    width: 50%;
+    display: inline-block;
+    width: 70%;
     background-color: #99cc00;
     padding: 10px;
     margin: 10px;
     overflow: hidden;
-    position: absolute;
-    bottom: 50%;
-    left: 50%;
-    transform: translateX(-50%);
 }
 .new_select{
     display: inline-block;
     font: sans-serif;
     font-family: Verdana;
     font-variant: small-caps;
-    font-size: 200%;
+    font-size: 250%;
     width: 30%;
+    float: left;
+}
+.new_text{
+    background-color: white;
+    padding: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    display: inline-block;
+    font: sans-serif;
+    font-family: Verdana;
+    font-variant: small-caps;
+    font-size: 250%;
     float: left;
 }
 .new_button{ 
     font-family: Verdana;
     font-variant: small-caps;
-    font-size: 200%;
+    font-size: 250%;
     margin-left: auto;
     margin-right: auto;
     width: 25%;

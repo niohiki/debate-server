@@ -240,19 +240,24 @@ public class ChronoServlet extends HttpServlet {
         return new HTML().child(
                 new Head().child(new CSSLink("/static/chrono.css")),
                 new Body().child(
-                        new Form("post", "chrono").attribute("class", "new_form").child(
-                                new Select("teama").attribute("class", "new_select").child(
-                                        teamOptions
+                        new Div("new_list").child(
+                                new Div("new_form").child(
+                                        new Div("new_text").content(locale.chrono.newFormTitle)
                                 ),
-                                new Select("teamb").attribute("class", "new_select").child(
-                                        teamOptions
-                                ),
-                                new Input().attribute("type", "submit").
-                                attribute("value", locale.chrono.newSubmit).
-                                attribute("class", "new_button"),
-                                new Input().attribute("name", "create").
-                                attribute("type", "hidden").
-                                attribute("value", "1")
+                                new Form("post", "chrono").attribute("class", "new_form").child(
+                                        new Select("teama").attribute("class", "new_select").child(
+                                                teamOptions
+                                        ),
+                                        new Select("teamb").attribute("class", "new_select").child(
+                                                teamOptions
+                                        ),
+                                        new Input().attribute("type", "submit").
+                                        attribute("value", locale.chrono.newSubmit).
+                                        attribute("class", "new_button"),
+                                        new Input().attribute("name", "create").
+                                        attribute("type", "hidden").
+                                        attribute("value", "1")
+                                )
                         )
                 )
         ).toHTML();
