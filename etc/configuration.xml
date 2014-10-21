@@ -3,6 +3,8 @@
     <sides>
         <yes>A favor</yes>
         <no>En contra</no>
+        <yesshort>AF</yesshort>
+        <noshort>EC</noshort>
     </sides>
     <stances>
         <stance time="240" side="yes">Introduccion</stance>
