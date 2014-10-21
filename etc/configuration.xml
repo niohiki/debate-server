@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <sides>
+        <yes>A favor</yes>
+        <no>En contra</no>
+    </sides>
     <stances>
-        <stance time="30">Introduccion - A favor</stance>
-        <stance time="300">Introduccion - En contra</stance>
-        <stance time="300">1ª Refutacion - A favor</stance>
-        <stance time="300">1ª Refutacion - En contra</stance>
+        <stance time="240" side="yes">Introduccion</stance>
+        <stance time="240" side="no">Introduccion</stance>
+        <stance time="300" side="yes">Refutacion</stance>
+        <stance time="300" side="no">Refutacion</stance>
+        <stance time="180" side="no">Conclusion</stance>
+        <stance time="180" side="yes">Conclusion</stance>
     </stances>
 </configuration>

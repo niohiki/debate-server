@@ -8,11 +8,24 @@ import org.w3c.dom.NodeList;
 
 public class Configuration {
 
+    public final Sides sides;
     public final Stances stances;
 
     public Configuration(Document doc) {
         Element root = (Element) doc.getElementsByTagName("configuration").item(0);
+        sides = new Sides((Element) root.getElementsByTagName("sides").item(0));
         stances = new Stances((Element) root.getElementsByTagName("stances").item(0));
+    }
+
+    public class Sides {
+
+        public final String yes;
+        public final String no;
+
+        public Sides(Element e) {
+            yes = e.getElementsByTagName("yes").item(0).getTextContent();
+            no = e.getElementsByTagName("no").item(0).getTextContent();
+        }
     }
 
     public class Stances {
@@ -26,7 +39,9 @@ public class Configuration {
             for (int i = 0; i < stance_list.getLength(); i++) {
                 Element ee = (Element) stance_list.item(i);
                 int time = Integer.parseInt(ee.getAttribute("time"));
-                list.add(new Stance(ee.getTextContent(), time));
+                String side = ee.getAttribute("side");
+                boolean yes = "yes".equals(side);
+                list.add(new Stance(ee.getTextContent(), yes, time));
             }
             number = list.size();
         }
@@ -39,10 +54,12 @@ public class Configuration {
 
             public final String name;
             public final int time;
+            public final boolean yesSide;
 
-            public Stance(String name, int time) {
-                this.name = name;
+            public Stance(String name, boolean yes, int time) {
+                this.name = name + " - " + (yes ? sides.yes : sides.no);
                 this.time = time;
+                this.yesSide = yes;
             }
         }
     }
