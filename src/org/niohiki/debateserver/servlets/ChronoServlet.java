@@ -107,7 +107,7 @@ public class ChronoServlet extends HttpServlet {
                 StringBuilder JSON = new StringBuilder("");
                 JSON.append("{\n").
                         append("\t\"stance\" : \"").append(chrono.stance()).append("\",\n").
-                        append("\t\"name\" : \"").append(chrono.name()).append("\",\n").
+                        append("\t\"name\" : \"").append(chrono.fullName()).append("\",\n").
                         append("\t\"mainTag\" : \"").append(mainTag).append("\",\n").
                         append("\t\"secondaryTag\" : \"").append(secondaryTag).append("\",\n").
                         append("\t\"resetTime\" : ").append(resetTime).append(",\n").
@@ -163,6 +163,11 @@ public class ChronoServlet extends HttpServlet {
                                     }
                                 }
                             }
+                            if ("sides".equals(request.getParameter("type"))) {
+                                if ("swap".equals(request.getParameter("action"))) {
+                                    chrono.swapTeamSides();
+                                }
+                            }
                         } else {
                             response.setContentType("text/html");
                             response.setStatus(HttpServletResponse.SC_OK);
@@ -194,7 +199,7 @@ public class ChronoServlet extends HttpServlet {
             String key = keys.next();
             Chronometer chrono = chronometers.get(key);
             items[i] = new Div("select_item").child(
-                    new Div("select_text").content(chrono.name()),
+                    new Div("select_text").content(chrono.shortName()),
                     new Div("select_text select_button").content(locale.chrono.watch).
                     attribute("onClick", "location.href='chrono?watch=1&id=" + key + "'"),
                     new Div("select_text select_button").content(locale.chrono.control).
@@ -262,7 +267,7 @@ public class ChronoServlet extends HttpServlet {
                 new Body().child(
                         new Div("watch_chrono").attribute("id", "chrono").child(
                                 new Div("").child(
-                                        new Div("watch_text").attribute("id", "name").content(chrono.name())
+                                        new Div("watch_text").attribute("id", "name").content(chrono.fullName())
                                 ),
                                 new Div("").child(
                                         new Div("watch_display").attribute("id", "display").content("---")
@@ -282,7 +287,7 @@ public class ChronoServlet extends HttpServlet {
         Tag[] stances = new Tag[configuration.stances.number];
         for (int i = 0; i < stances.length; i++) {
             Stance stance = configuration.stances.get(i);
-            stances[i] = new Div("control_button").content(stance.name).
+            stances[i] = new Div("control_button").content(stance.fullName).
                     attribute("onClick", "control('" + id + "','type=stance&action=set&i=" + i + "')");
         }
         return new HTML().child(
@@ -309,7 +314,8 @@ public class ChronoServlet extends HttpServlet {
                         new Div("control_block").child(
                                 new Div("control_button").content(locale.chrono.controlNext).
                                 attribute("onClick", "control('" + id + "','type=stance&action=next')"),
-                                new Div("control_button").content(locale.chrono.controlSwap)
+                                new Div("control_button").content(locale.chrono.controlSwap).
+                                attribute("onClick", "control('" + id + "','type=sides&action=swap')")
                         ),
                         new Div("control_block").child(
                                 stances

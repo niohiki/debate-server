@@ -21,10 +21,14 @@ public class Configuration {
 
         public final String yes;
         public final String no;
+        public final String yesShort;
+        public final String noShort;
 
         public Sides(Element e) {
             yes = e.getElementsByTagName("yes").item(0).getTextContent();
             no = e.getElementsByTagName("no").item(0).getTextContent();
+            yesShort = e.getElementsByTagName("yesshort").item(0).getTextContent();
+            noShort = e.getElementsByTagName("noshort").item(0).getTextContent();
         }
     }
 
@@ -52,12 +56,14 @@ public class Configuration {
 
         public class Stance {
 
+            public final String fullName;
             public final String name;
             public final int time;
             public final boolean yesSide;
 
             public Stance(String name, boolean yes, int time) {
-                this.name = name + " - " + (yes ? sides.yes : sides.no);
+                this.name = name;
+                this.fullName = name + " - " + (yes ? sides.yesShort : sides.noShort);
                 this.time = time;
                 this.yesSide = yes;
             }

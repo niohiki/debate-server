@@ -14,6 +14,7 @@ public class Chronometer {
     private boolean mainRunning;
     private boolean secondaryRunning;
     private boolean alive;
+    private boolean teamAyesSide;
     private int stance;
     private final Configuration configuration;
     private final Team teamA;
@@ -27,6 +28,7 @@ public class Chronometer {
         alive = true;
         mainRunning = false;
         secondaryRunning = false;
+        teamAyesSide = true;
         mainTimeNanos = 0;
         secondaryTimeNanos = 0;
         new Thread(() -> {
@@ -116,6 +118,10 @@ public class Chronometer {
         }
     }
 
+    public synchronized void swapTeamSides() {
+        teamAyesSide = !teamAyesSide;
+    }
+
     public boolean isMainRunning() {
         return mainRunning;
     }
@@ -124,12 +130,17 @@ public class Chronometer {
         return secondaryRunning;
     }
 
-    public String name() {
+    public String shortName() {
         return teamA.name + " vs " + teamB.name;
     }
 
+    public String fullName() {
+        return teamA.name + " (" + (teamAyesSide ? configuration.sides.yes : configuration.sides.no)
+                + ") vs " + teamB.name + " (" + (teamAyesSide ? configuration.sides.no : configuration.sides.yes) + ")";
+    }
+
     public String stance() {
-        return configuration.stances.get(stance).name;
+        return configuration.stances.get(stance).fullName;
     }
 
     public int getStanceIndex() {
@@ -138,6 +149,6 @@ public class Chronometer {
 
     @Override
     public String toString() {
-        return name();
+        return fullName();
     }
 }
