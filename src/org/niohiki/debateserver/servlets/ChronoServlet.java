@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.niohiki.debateserver.Configuration;
+import org.niohiki.debateserver.Configuration.Stances.Stance;
 import org.niohiki.debateserver.DebateSession;
 import org.niohiki.debateserver.DebateSession.Teams.Team;
 import org.niohiki.debateserver.Locale;
@@ -155,6 +156,11 @@ public class ChronoServlet extends HttpServlet {
                             } else if ("stance".equals(request.getParameter("type"))) {
                                 if ("next".equals(request.getParameter("action"))) {
                                     chrono.nextStance();
+                                } else if ("set".equals(request.getParameter("action"))) {
+                                    String i = request.getParameter("i");
+                                    if (i != null) {
+                                        chrono.setStance(Integer.parseInt(i));
+                                    }
                                 }
                             }
                         } else {
@@ -273,6 +279,12 @@ public class ChronoServlet extends HttpServlet {
     }
 
     private String makeControl(String id, Chronometer chrono) {
+        Tag[] stances = new Tag[configuration.stances.number];
+        for (int i = 0; i < stances.length; i++) {
+            Stance stance = configuration.stances.get(i);
+            stances[i] = new Div("control_button").content(stance.name).
+                    attribute("onClick", "control('" + id + "','type=stance&action=set&i=" + i + "')");
+        }
         return new HTML().child(
                 new Head().child(
                         new CSSLink("/static/chrono.css"),
@@ -298,6 +310,9 @@ public class ChronoServlet extends HttpServlet {
                                 new Div("control_button").content(locale.chrono.controlNext).
                                 attribute("onClick", "control('" + id + "','type=stance&action=next')"),
                                 new Div("control_button").content(locale.chrono.controlSwap)
+                        ),
+                        new Div("control_block").child(
+                                stances
                         ),
                         new Script().content("controlTags(\"" + id + "\"); ")
                 )
