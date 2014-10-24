@@ -3,6 +3,9 @@ package org.niohiki.debateserver;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author Santiago Codesido Sanchez
+ **/
 public class PasswordDialog extends javax.swing.JDialog {
 
     private final MainFrame parent;

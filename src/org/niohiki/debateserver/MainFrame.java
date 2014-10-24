@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -27,6 +29,9 @@ import org.niohiki.debateserver.servlets.ChronoServlet;
 import org.niohiki.debateserver.swing.ChronoTableModel;
 import org.xml.sax.SAXException;
 
+/**
+ * @author Santiago Codesido Sanchez
+ **/
 public class MainFrame extends javax.swing.JFrame {
 
     public final Locale locale;
@@ -46,6 +51,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="constructor">
     public MainFrame() throws Exception {
+        
         locale = loadLocale();
         configuration = loadConfiguration();
         session = loadSession();

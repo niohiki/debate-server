@@ -6,6 +6,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+/**
+ * @author Santiago Codesido Sanchez
+ **/
 public class Configuration {
 
     public final Sides sides;

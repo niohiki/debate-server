@@ -6,6 +6,9 @@ import javax.swing.table.AbstractTableModel;
 import org.niohiki.debateserver.Locale;
 import org.niohiki.debateserver.chronometer.Chronometer;
 
+/**
+ * @author Santiago Codesido Sanchez
+ **/
 public class ChronoTableModel extends AbstractTableModel {
 
     private final HashMap<String, Chronometer> chronometers;

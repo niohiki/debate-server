@@ -3,6 +3,9 @@ package org.niohiki.debateserver;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+ * @author Santiago Codesido Sanchez
+ **/
 public class Locale {
 
     public final IpInfo ipInfo;

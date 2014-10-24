@@ -31,6 +31,9 @@ import org.niohiki.debateserver.html.Script;
 import org.niohiki.debateserver.html.Select;
 import org.niohiki.debateserver.html.Tag;
 
+/**
+ * @author Santiago Codesido Sanchez
+ **/
 public class ChronoServlet extends HttpServlet {
 
     private final HashMap<String, Chronometer> chronometers;

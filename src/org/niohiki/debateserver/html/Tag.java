@@ -3,6 +3,9 @@ package org.niohiki.debateserver.html;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author Santiago Codesido Sanchez
+ **/
 public class Tag {
 
     private final String name;

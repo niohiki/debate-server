@@ -1,5 +1,8 @@
 package org.niohiki.debateserver;
 
+/**
+ * @author Santiago Codesido Sanchez
+ **/
 public class Main {
 
     public static void main(String[] args) throws Exception {

@@ -3,6 +3,9 @@ package org.niohiki.debateserver;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author Santiago Codesido Sanchez
+ **/
 public class Utils {
 
     public static final String staticResourcePath = "./static/";

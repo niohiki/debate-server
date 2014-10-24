@@ -1,5 +1,8 @@
 package org.niohiki.debateserver.html;
 
+/**
+ * @author Santiago Codesido Sanchez
+ **/
 public class CSSLink extends Tag {
 
     public CSSLink(String cssFile) {

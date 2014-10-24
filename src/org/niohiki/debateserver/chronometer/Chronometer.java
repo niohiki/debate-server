@@ -3,6 +3,9 @@ package org.niohiki.debateserver.chronometer;
 import org.niohiki.debateserver.Configuration;
 import org.niohiki.debateserver.DebateSession.Teams.Team;
 
+/**
+ * @author Santiago Codesido Sanchez
+ **/
 public class Chronometer {
 
     private final static int sleepTimeNanos = 0;
