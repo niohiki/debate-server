@@ -25,6 +25,7 @@
         </copy>
         <copy file="LICENSE" tofile="${dist.dir}/LICENSE.TXT"/>
         <copy file="README.md" tofile="${dist.dir}/README.TXT" overwrite="true"/>
+        <copy file="readme_es.html" tofile="${dist.dir}/readme_es.html" overwrite="true"/>
     </target>
     <!--
 
