@@ -33,7 +33,8 @@ import org.niohiki.debateserver.html.Tag;
 
 /**
  * @author Santiago Codesido Sanchez
- **/
+ *
+ */
 public class ChronoServlet extends HttpServlet {
 
     private final HashMap<String, Chronometer> chronometers;
@@ -173,6 +174,10 @@ public class ChronoServlet extends HttpServlet {
                                         chrono.swapTeamSides();
                                     }
                                 }
+                            } else if ("1".equals(request.getParameter("delete"))) {
+                                chrono.kill();
+                                chronometers.remove(key);
+                                response.sendRedirect("/chrono");
                             } else {
                                 response.setContentType("text/html");
                                 response.setStatus(HttpServletResponse.SC_OK);
@@ -211,7 +216,9 @@ public class ChronoServlet extends HttpServlet {
                     new Div("select_text select_button").content(locale.chrono.watch).
                     attribute("onClick", "location.href='chrono?watch=1&id=" + key + "'"),
                     new Div("select_text select_button").content(locale.chrono.control).
-                    attribute("onClick", "location.href='chrono?control=1&id=" + key + "'")
+                    attribute("onClick", "location.href='chrono?control=1&id=" + key + "'"),
+                    new Div("select_text select_button").content(locale.chrono.delete).
+                    attribute("onClick", "location.href='chrono?control=1&delete=1&id=" + key + "'")
             );
         }
         return new HTML().child(

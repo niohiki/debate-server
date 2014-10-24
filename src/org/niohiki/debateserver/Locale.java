@@ -27,6 +27,7 @@ public class Locale {
         public final String newFormTitle;
         public final String watch;
         public final String control;
+        public final String delete;
         public final String newSubmit;
         
         public final String controlMain;
@@ -46,6 +47,7 @@ public class Locale {
             newFormTitle = e.getElementsByTagName("newformtitle").item(0).getTextContent();
             watch = e.getElementsByTagName("watch").item(0).getTextContent();
             control = e.getElementsByTagName("control").item(0).getTextContent();
+            delete = e.getElementsByTagName("delete").item(0).getTextContent();
             controlMain = e.getElementsByTagName("controlmain").item(0).getTextContent();
             controlSecondary = e.getElementsByTagName("controlsecondary").item(0).getTextContent();
             controlRun = e.getElementsByTagName("controlrun").item(0).getTextContent();

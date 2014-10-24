@@ -28,6 +28,7 @@
         <newformtitle>Seleccionar equipos</newformtitle>
         <watch>Ver</watch>
         <control>Control</control>
+        <delete>Borrar</delete>
         <controlmain>principal</controlmain>
         <controlsecondary>extra</controlsecondary>
         <controlrun>Iniciar</controlrun>
