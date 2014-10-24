@@ -38,41 +38,78 @@
                 return toc;
             }
             function table_root(title) {
-                var body = document.getElementsByTagName('body')[0];
+                var main = document.getElementById('main');
                 var titleElement = document.createElement("h1");
                 titleElement.innerHTML = title;
-                body.insertBefore(table(1, '', body), body.firstChild);
-                body.insertBefore(titleElement, body.firstChild);
+                main.insertBefore(table(1, '', main), main.firstChild);
+                main.insertBefore(titleElement, main.firstChild);
             }
         </script>
     </head>
     <body>
-        <div class="toc_item" title="Primeros pasos">
-            <div class="toc_item" title="Ideas b&aacute;sicas">
+        <div id="main" style="width: 80%; margin-left: auto; margin-right: auto;">
+            <div class="toc_item" title="Primeros pasos">
+                <div class="toc_item" title="Ideas b&aacute;sicas">
+                    <p>El objetivo de este programa es reunir en una sola m&aacute;quina
+                        todo el soporte inform&aacute;tico que requiere un torneo.</p>
+                    <p>Por supuesto, los servicios deben estar disponibles en m&aacute;s de un lugar - en varias salas,
+                        y en cada sala probablemente en varios dispositivos. La filosof&iacute;a del servidor de debate
+                        es mantener todo lo m&aacute;s simple posible. Para ello, una m&aacute;quina central ejecuta
+                        el servidor, y mientras este se encuentre en funcionamiento, cualquier dispositivo conectado
+                        a su misma red podr&aacute; acceder a ella mediante un navegador web.</p>
+                </div>
+                <div class="toc_item" title="Instalaci&oacute;n">
+                    <p>Tras extraer el programa en la carpeta correspondiente, para funcionar correctamente debe estar acompa&ntilde;ado de las carpetas &quot;etc&quot;, &quot;static&quot;, y &quot;lib&quot;.</p>
+
+                    <p>El programa requiere la versi&oacute;n 8 de Java. Ha de ser ejecutado en la misma carpeta en la que se encuentra, o no ser&aacute; capaz de encontrar los archivos de configuraci&oacute;n en &quot;etc&quot; y &quot;static&quot;. Para esto hay dos opciones. Por un lado, se puede invocar directamente desde la l&iacute;nea de comando con</p>
+
+                    <p style="text-align: center;">cd &quot;direccion\de\la\carpeta&quot;</p>
+                    
+                    <p style="text-align: center;">java -jar DebateServer.jar</p>
+
+                    <p>pero para no hacer necesaria la l&iacute;nea de comando, el programa viene acompa&ntilde;ado de un script llamado <i>run.bat</i> que har&aacute; esto mismo con tan s&oacute;lo hacer doble clic sobre &eacute;l.</p>
+
+                    <p><b>Abrir DebateServer.jar directamente desde el explorador de archivos lo ejecutar&aacute; en la carpeta del usuario, y el programa no podr&aacute; encontrar los archivos de configuraci&oacute;n.</b></p>
+                </div>
+                <div class="toc_item" title="Archivos de configuraci&oacute;n">
+                    <p>El programa usa cuatro archivos de configuraci&oacute;n, que se hallan en la carpeta &quot;etc&quot;.</p>
+
+                    <p>El primero de ellos, <i>configuration.ini</i>, especifica los nombres de los otros tres. Resulta &uacute;til si uno quiere mantener diferentes configuraciones. Por ejemplo, si uno tiene dos archivos de idioma, <i>locale_english.xml</i> y <i>locale_galego.xml</i>, puede cambiar la configuraci&oacute;n del programa editando <i>configuration.ini</i> y sustituyendo</p>
+
+                    <p style="text-align: center;">locale=locale_english.xml</p>
+
+                    <p>por</p>
+
+                    <p style="text-align: center;">locale=locale_galego.xml</p>
+
+                    <p>El archivo <i>locale.xml</i> especifica el idioma del programa. Se puede editar o sustituir para cambiarlo, pero en general no hace falta preocuparse de &eacute;l.</p>
+
+                    <p><i>options.xml</i> guarda la informaci&oacute;n relevante para el tipo de debate - en particular, los turnos y posturas. Es decir, una versi&oacute;n de este archivo puede tener la configuraci&oacute;n para debate acad&eacute;mico, y otra versi&oacute;n para BP.</p>
+
+                    <p><i>session.xml</i> tiene la informaci&oacute;n respectiva a la sesi&oacute;n particular de debate. En &eacute;l han de figurar, por ejemplo, los nombres de los equipos y sus integrantes.</p>
+
+                    <p>Todos estos archivos pueden ser editados con el Bloc de notas o cualquier utilidad equivalente. </p>
+                </div>
             </div>
-            <div class="toc_item" title="Instalaci&oacute;n">
+            <div class="toc_item" title="El servidor">
+                <div class="toc_item" title="Generalidades">
+                </div>
+                <div class="toc_item" title="Contrase&ntilde;as">
+                </div>
+                <div class="toc_item" title="Configuraci&oacute;n IP">
+                </div>
+                <div class="toc_item" title="Panel de control">
+                </div>
             </div>
-            <div class="toc_item" title="Archivos de configuraci&oacute;n">
-            </div>
-        </div>
-        <div class="toc_item" title="El servidor">
-            <div class="toc_item" title="Generalidades">
-            </div>
-            <div class="toc_item" title="Contrase&ntilde;as">
-            </div>
-            <div class="toc_item" title="Configuraci&oacute;n IP">
-            </div>
-            <div class="toc_item" title="Panel de control">
-            </div>
-        </div>
-        <div class="toc_item" title="El cron&oacute;metro">
-            <div class="toc_item" title="Funcionamiento">
-            </div>
-            <div class="toc_item" title="Crear un cron&oacute;metro">
-            </div>
-            <div class="toc_item" title="Control">
-            </div>
-            <div class="toc_item" title="Ver un cron&oacute;metro">
+            <div class="toc_item" title="El cron&oacute;metro">
+                <div class="toc_item" title="Funcionamiento">
+                </div>
+                <div class="toc_item" title="Crear un cron&oacute;metro">
+                </div>
+                <div class="toc_item" title="Control">
+                </div>
+                <div class="toc_item" title="Ver un cron&oacute;metro">
+                </div>
             </div>
         </div>
         <script>
