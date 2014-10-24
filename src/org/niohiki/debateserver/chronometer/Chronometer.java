@@ -1,6 +1,6 @@
 package org.niohiki.debateserver.chronometer;
 
-import org.niohiki.debateserver.Configuration;
+import org.niohiki.debateserver.Options;
 import org.niohiki.debateserver.DebateSession.Teams.Team;
 
 /**
@@ -19,11 +19,11 @@ public class Chronometer {
     private boolean alive;
     private boolean teamAyesSide;
     private int stance;
-    private final Configuration configuration;
+    private final Options configuration;
     private final Team teamA;
     private final Team teamB;
 
-    public Chronometer(Configuration conf, Team a, Team b) {
+    public Chronometer(Options conf, Team a, Team b) {
         configuration = conf;
         teamA = a;
         teamB = b;

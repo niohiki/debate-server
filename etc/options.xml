@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<options>
     <sides>
         <yes>A favor</yes>
         <no>En contra</no>
@@ -14,4 +14,4 @@
         <stance time="180" side="no">Conclusion</stance>
         <stance time="180" side="yes">Conclusion</stance>
     </stances>
-</configuration>
+</options>

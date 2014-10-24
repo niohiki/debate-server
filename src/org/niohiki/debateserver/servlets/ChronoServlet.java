@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.niohiki.debateserver.Configuration;
-import org.niohiki.debateserver.Configuration.Stances.Stance;
+import org.niohiki.debateserver.Options;
+import org.niohiki.debateserver.Options.Stances.Stance;
 import org.niohiki.debateserver.DebateSession;
 import org.niohiki.debateserver.DebateSession.Teams.Team;
 import org.niohiki.debateserver.Locale;
@@ -38,13 +38,13 @@ import org.niohiki.debateserver.html.Tag;
 public class ChronoServlet extends HttpServlet {
 
     private final HashMap<String, Chronometer> chronometers;
-    private final Configuration configuration;
+    private final Options configuration;
     private final DebateSession debateSession;
     private final Locale locale;
     private final String md5password;
     private final SecureRandom random;
 
-    public ChronoServlet(Configuration conf, DebateSession session, Locale loc,
+    public ChronoServlet(Options conf, DebateSession session, Locale loc,
             HashMap<String, Chronometer> chronos, String md5pass) {
         configuration = conf;
         debateSession = session;

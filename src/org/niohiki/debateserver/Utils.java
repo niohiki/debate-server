@@ -13,9 +13,11 @@ public class Utils {
 
     public static final String chronoContext = "/chrono";
 
-    public static final String localeFile = "etc/locale.xml";
-    public static final String configurationFile = "etc/configuration.xml";
-    public static final String sessionFile = "etc/session.xml";
+    public static final String configurationDir = "etc/";
+    public static final String configurationFile = "configuration.ini";
+    public static final String sessionKey = "session";
+    public static final String localeKey = "locale";
+    public static final String optionsKey = "options";
 
     public static String safeMD5(char[] psw) throws NoSuchAlgorithmException {
         byte[] b = new byte[psw.length << 1];

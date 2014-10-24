@@ -31,12 +31,14 @@ import org.xml.sax.SAXException;
 
 /**
  * @author Santiago Codesido Sanchez
- **/
+ *
+ */
 public class MainFrame extends javax.swing.JFrame {
 
     public final Locale locale;
-    public final Configuration configuration;
+    public final Options options;
     public final DebateSession session;
+    public final Configuration configuration;
 
     public final String passwordScoreMD5;
     public final String passwordChronoMD5;
@@ -51,9 +53,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="constructor">
     public MainFrame() throws Exception {
-        
+
+        configuration = new Configuration(new File(Utils.configurationDir + Utils.configurationFile));
         locale = loadLocale();
-        configuration = loadConfiguration();
+        options = loadOptions();
         session = loadSession();
 
         chronometers = new HashMap<>();
@@ -100,21 +103,21 @@ public class MainFrame extends javax.swing.JFrame {
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new Locale(dBuilder.parse(new File(Utils.localeFile)));
+        return new Locale(dBuilder.parse(new File(configuration.localeFile)));
     }
 
-    private Configuration loadConfiguration() throws
+    private Options loadOptions() throws
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new Configuration(dBuilder.parse(new File(Utils.configurationFile)));
+        return new Options(dBuilder.parse(new File(configuration.optionsFile)));
     }
 
     private DebateSession loadSession() throws
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new DebateSession(dBuilder.parse(new File(Utils.sessionFile)));
+        return new DebateSession(dBuilder.parse(new File(configuration.sessionFile)));
     }
     // </editor-fold>
 
@@ -125,7 +128,7 @@ public class MainFrame extends javax.swing.JFrame {
         servletHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletHandler.setContextPath("/");
         servletHandler.addServlet(new ServletHolder(
-                new ChronoServlet(configuration, session, locale,
+                new ChronoServlet(options, session, locale,
                         chronometers, passwordChronoMD5)),
                 Utils.chronoContext);
 
