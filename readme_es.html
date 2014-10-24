@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>Manual - DebateServer</title>  
+        <script>
+            function hasClass(element, cls) {
+                return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+            }
+            function table(parentLevel, parentId, root) {
+                var toc = document.createElement('ul');
+                var rootNodes = root.childNodes;
+                var itemList = [];
+                for (var i = 0; i < rootNodes.length; i++) {
+                    if (hasClass(rootNodes[i], 'toc_item')) {
+                        itemList.push(rootNodes[i]);
+                    }
+                }
+                for (var i = 0; i < itemList.length; i++) {
+                    var list_element = document.createElement('li');
+                    var node = itemList[i];
+                    var link = document.createElement('a');
+                    var linkId = parentId + (i + 1);
+                    var nodeId = node.id || 'link' + linkId;
+                    var nodeTitle = document.createElement('h' + parentLevel);
+                    var nodeRuler = document.createElement('hr');
+                    nodeTitle.innerHTML = linkId + ' - ' + node.title;
+                    link.innerHTML = linkId + ' ' + node.title;
+                    link.href = '#' + nodeId;
+                    node.id = nodeId;
+                    node.insertBefore(nodeRuler, node.firstChild);
+                    node.insertBefore(nodeTitle, node.firstChild);
+                    link.style.display = 'block';
+                    link.style.textDecoration = 'None';
+                    link.style.fontSize = (150 - 20 * parentLevel) + '%';
+                    list_element.appendChild(link);
+                    list_element.appendChild(table(parentLevel + 1, linkId + '-', node));
+                    toc.appendChild(list_element);
+                }
+                return toc;
+            }
+            function table_root(title) {
+                var body = document.getElementsByTagName('body')[0];
+                var titleElement = document.createElement("h1");
+                titleElement.innerHTML = title;
+                body.insertBefore(table(1, '', body), body.firstChild);
+                body.insertBefore(titleElement, body.firstChild);
+            }
+        </script>
+    </head>
+    <body>
+        <div class="toc_item" title="Primeros pasos">
+            <div class="toc_item" title="Ideas b&aacute;sicas">
+            </div>
+            <div class="toc_item" title="Instalaci&oacute;n">
+            </div>
+            <div class="toc_item" title="Archivos de configuraci&oacute;n">
+            </div>
+        </div>
+        <div class="toc_item" title="El servidor">
+            <div class="toc_item" title="Generalidades">
+            </div>
+            <div class="toc_item" title="Contrase&ntilde;as">
+            </div>
+            <div class="toc_item" title="Configuraci&oacute;n IP">
+            </div>
+            <div class="toc_item" title="Panel de control">
+            </div>
+        </div>
+        <div class="toc_item" title="El cron&oacute;metro">
+            <div class="toc_item" title="Funcionamiento">
+            </div>
+            <div class="toc_item" title="Crear un cron&oacute;metro">
+            </div>
+            <div class="toc_item" title="Control">
+            </div>
+            <div class="toc_item" title="Ver un cron&oacute;metro">
+            </div>
+        </div>
+        <script>
+            table_root("Manual DebateServer");
+        </script>
+    </body>
+</html>
