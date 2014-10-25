@@ -3,16 +3,16 @@
     <app>
         <title>Servidor de debate Agade</title>
         <passwordinputscore>Contraseña para puntuaciones</passwordinputscore>
-        <passwordinputchrono>Contraseña para cronometro</passwordinputchrono>
+        <passwordinputchrono>Contraseña para cronómetro</passwordinputchrono>
         <okbutton>Aceptar</okbutton>
     </app>
     <ipinfo>
-        <tabtitle>Informacion IP</tabtitle>
-        <iplabel>IPs para esta maquina</iplabel>
+        <tabtitle>Información IP</tabtitle>
+        <iplabel>IPs para esta máquina</iplabel>
         <firewallinfo>El firewall debe permitir que Java acepte conexiones entrantes</firewallinfo>
     </ipinfo>
     <chronoinfo>
-        <tabtitle>Cronometros</tabtitle>
+        <tabtitle>Cronómetros</tabtitle>
         <chrononame>Debate</chrononame>
         <chronoid>ID</chronoid>
         <stance>Postura</stance>
@@ -23,7 +23,7 @@
         <delete>Borrar</delete>
     </chronoinfo>
     <main>
-        <chronotag>Cronometro</chronotag>
+        <chronotag>Cronómetro</chronotag>
     </main>
     <chrono>
         <newchrono>Nuevo</newchrono>

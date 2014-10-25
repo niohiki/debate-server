@@ -1,7 +1,12 @@
 package org.niohiki.debateserver;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -28,6 +33,7 @@ import org.niohiki.debateserver.handlers.StaticHandler;
 import org.niohiki.debateserver.servlets.ChronoServlet;
 import org.niohiki.debateserver.servlets.MainServlet;
 import org.niohiki.debateserver.swing.ChronoTableModel;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
@@ -100,25 +106,26 @@ public class MainFrame extends javax.swing.JFrame {
     //</editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="load xml methods">
+
     private Locale loadLocale() throws
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new Locale(dBuilder.parse(new File(configuration.localeFile)));
+        return new Locale(dBuilder.parse(new FileInputStream(new File(configuration.localeFile))));
     }
 
     private Options loadOptions() throws
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new Options(dBuilder.parse(new File(configuration.optionsFile)));
+        return new Options(dBuilder.parse(new FileInputStream(new File(configuration.optionsFile))));
     }
 
     private DebateSession loadSession() throws
             ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return new DebateSession(dBuilder.parse(new File(configuration.sessionFile)));
+        return new DebateSession(dBuilder.parse(new FileInputStream(new File(configuration.sessionFile))));
     }
     // </editor-fold>
 
@@ -133,7 +140,7 @@ public class MainFrame extends javax.swing.JFrame {
                         chronometers, passwordChronoMD5)),
                 Utils.chronoContext);
         servletHandler.addServlet(new ServletHolder(
-                new MainServlet(locale)),"/");
+                new MainServlet(locale)), "/");
 
         HandlerList handlers = new HandlerList();
         handlers.addHandler(staticHandler);
