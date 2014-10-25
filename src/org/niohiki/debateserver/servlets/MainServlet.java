@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.niohiki.debateserver.Locale;
 import org.niohiki.debateserver.html.Body;
 import org.niohiki.debateserver.html.CSSLink;
 import org.niohiki.debateserver.html.Div;
@@ -14,6 +15,12 @@ import org.niohiki.debateserver.html.Head;
 import org.niohiki.debateserver.html.Input;
 
 public class MainServlet extends HttpServlet {
+
+    private final Locale locale;
+
+    public MainServlet(Locale loc) {
+        locale = loc;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
@@ -26,8 +33,11 @@ public class MainServlet extends HttpServlet {
         return new HTML().child(
                 new Head().child(new CSSLink("/static/main.css")),
                 new Body().child(
-                        new Div("main_item").child(
-                                new Div("main_text").content("Ccc").attribute("onClick", "location.href='/chrono'")
+                        new Div("main_container").child(
+                                new Div("main_item").child(
+                                        new Div("main_text").content(locale.main.chrono).
+                                        attribute("onClick", "location.href='/chrono'")
+                                )
                         )
                 )
         ).toHTML();

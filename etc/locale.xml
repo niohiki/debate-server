@@ -22,6 +22,9 @@
         <togglesecondary>Cambiar secundario</togglesecondary>
         <delete>Borrar</delete>
     </chronoinfo>
+    <main>
+        <chronotag>Cronometro</chronotag>
+    </main>
     <chrono>
         <newchrono>Nuevo</newchrono>
         <newsubmit>Ok</newsubmit>

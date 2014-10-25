@@ -5,13 +5,15 @@ import org.w3c.dom.Element;
 
 /**
  * @author Santiago Codesido Sanchez
- **/
+ *
+ */
 public class Locale {
 
     public final IpInfo ipInfo;
     public final ChronoInfo chronoInfo;
     public final App app;
     public final Chrono chrono;
+    public final Main main;
 
     public Locale(Document doc) {
         Element root = (Element) doc.getElementsByTagName("locale").item(0);
@@ -19,6 +21,16 @@ public class Locale {
         chronoInfo = new ChronoInfo((Element) root.getElementsByTagName("chronoinfo").item(0));
         app = new App((Element) root.getElementsByTagName("app").item(0));
         chrono = new Chrono((Element) root.getElementsByTagName("chrono").item(0));
+        main = new Main((Element) root.getElementsByTagName("main").item(0));
+    }
+
+    public class Main {
+
+        public final String chrono;
+
+        public Main(Element e) {
+            chrono = e.getElementsByTagName("chronotag").item(0).getTextContent();
+        }
     }
 
     public class Chrono {
@@ -29,7 +41,7 @@ public class Locale {
         public final String control;
         public final String delete;
         public final String newSubmit;
-        
+
         public final String controlMain;
         public final String controlSecondary;
         public final String controlRun;
@@ -39,7 +51,6 @@ public class Locale {
         public final String controlReset;
         public final String controlSwap;
         public final String controlNext;
-        
 
         public Chrono(Element e) {
             newChrono = e.getElementsByTagName("newchrono").item(0).getTextContent();

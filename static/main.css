@@ -1,17 +1,20 @@
-.main_item{
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+.main_container{
     text-align: center;
+}
+.main_item{
+    display: inline-block;
     background-color: #99cc00;
     margin: 10px;
+    padding: 10px;
 }
 .main_text{
     display: inline-block;
     background-color: white;
     margin: 10px;
+    padding: 10px;
     font: sans-serif;
     font-family: Verdana;
     font-variant: small-caps;
     font-size: 250%;
+    cursor: pointer;
 }

@@ -133,7 +133,7 @@ public class MainFrame extends javax.swing.JFrame {
                         chronometers, passwordChronoMD5)),
                 Utils.chronoContext);
         servletHandler.addServlet(new ServletHolder(
-                new MainServlet()),"/");
+                new MainServlet(locale)),"/");
 
         HandlerList handlers = new HandlerList();
         handlers.addHandler(staticHandler);
