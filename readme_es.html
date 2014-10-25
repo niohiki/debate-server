@@ -64,7 +64,7 @@
                     <p>El programa requiere la versi&oacute;n 8 de Java. Ha de ser ejecutado en la misma carpeta en la que se encuentra, o no ser&aacute; capaz de encontrar los archivos de configuraci&oacute;n en &quot;etc&quot; y &quot;static&quot;. Para esto hay dos opciones. Por un lado, se puede invocar directamente desde la l&iacute;nea de comando con</p>
 
                     <p style="text-align: center;">cd &quot;direccion\de\la\carpeta&quot;</p>
-                    
+
                     <p style="text-align: center;">java -jar DebateServer.jar</p>
 
                     <p>pero para no hacer necesaria la l&iacute;nea de comando, el programa viene acompa&ntilde;ado de un script llamado <i>run.bat</i> que har&aacute; esto mismo con tan s&oacute;lo hacer doble clic sobre &eacute;l.</p>
@@ -92,9 +92,13 @@
                 </div>
             </div>
             <div class="toc_item" title="El servidor">
-                <div class="toc_item" title="Generalidades">
-                </div>
+                <p>El servidor es el programa que alberga los datos y al que el resto de m&aacute;quinas se conectan v&iacute;a web. Es decir, para que el sistema funcione, <b>ha de estar ejecut&aacute;ndose</b>. La interfaz gr&aacute;fica del mismo ofrece la informaci&oacute;n relevante sobre las conexiones y permite ejercer un control directo sobre todas sus funciones.</p>
+
+                <p>A continuaci&oacute;n se describen las funciones que ofrece cada parte de la interfaz.</p>
                 <div class="toc_item" title="Contrase&ntilde;as">
+                    <p>Obviamente, el servidor ser&iacute;a de poca utilidad si cualquier persona con un navegador tuviese acceso y la capacidad de modificar toda la informaci&oacute;n en el mismo. Para ello, al arrancar el programa solicitar&aacute; dos contrase&ntilde;as. La primera ha de ser suministrada a los jueces, y ser&aacute; requerida para enviar y modificar puntuaciones. La segunda es para los encargados del cron&oacute;metro, y ser&aacute; requerida para crear y controlar los cron&oacute;metros.</p>
+
+                    <p><b>Las contrase&ntilde;as han de ser introducidas de nuevo en cada ejecuci&oacute;n.</b></p>
                 </div>
                 <div class="toc_item" title="Configuraci&oacute;n IP">
                 </div>
