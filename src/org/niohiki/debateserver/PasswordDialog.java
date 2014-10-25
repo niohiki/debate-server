@@ -38,6 +38,7 @@ public class PasswordDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(parent.locale.app.title);
+        setAlwaysOnTop(true);
         setResizable(false);
 
         jLabel1.setText(parent.locale.app.passwordInputScore);
