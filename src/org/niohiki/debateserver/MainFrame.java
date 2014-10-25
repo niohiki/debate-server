@@ -26,6 +26,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.niohiki.debateserver.chronometer.Chronometer;
 import org.niohiki.debateserver.handlers.StaticHandler;
 import org.niohiki.debateserver.servlets.ChronoServlet;
+import org.niohiki.debateserver.servlets.MainServlet;
 import org.niohiki.debateserver.swing.ChronoTableModel;
 import org.xml.sax.SAXException;
 
@@ -131,6 +132,8 @@ public class MainFrame extends javax.swing.JFrame {
                 new ChronoServlet(options, session, locale,
                         chronometers, passwordChronoMD5)),
                 Utils.chronoContext);
+        servletHandler.addServlet(new ServletHolder(
+                new MainServlet()),"/");
 
         HandlerList handlers = new HandlerList();
         handlers.addHandler(staticHandler);
