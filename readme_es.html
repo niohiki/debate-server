@@ -101,18 +101,71 @@
                     <p><b>Las contrase&ntilde;as han de ser introducidas de nuevo en cada ejecuci&oacute;n.</b></p>
                 </div>
                 <div class="toc_item" title="Configuraci&oacute;n IP">
+                    <p>La pieza clave del sistema es poder conectarse a la m&aacute;quina que ejecuta el programa desde cualquier otra. Para ello, necesitamos su <b>direcci&oacute;n IP</b>, que es el equivalente a una direcci&oacute;n postal en la web. El formato son 4 n&uacute;meros separados por puntos, al estilo 123.45.67.890, que identifican de manera &uacute;nica al ordenador en una red determinada.</p>
+
+                    <p><b>En particular, esto quiere decir que no cualquier ordenador del mundo puede acceder al servidor.</b> S&oacute;lo los que se hallen en su misma red - si por ejemplo utilizamos la IP del adaptador WiFi, <b>s&oacute;lo otras m&aacute;quinas conectadas a la misma red WiFi podr&aacute;n encontrar esa direcci&oacute;n.</b></p>
+
+                    <p>La primera pesta&ntilde;a nos ofrece esta informaci&oacute;n, d&aacute;ndonos todas las direcciones IP que se est&aacute;n utilizando en el momento de arrancar.</p>
+
+                    <p>La primera deber&iacute;a ser 127.0.0.1, con un nombre parecido a &quot;loopback&quot; - esta <b>no</b> nos interesa. Es la que utiliza el ordenador para comunicarse consigo mismo - es decir, es la &uacute;nica m&aacute;quina en esta red.</p>
+
+                    <p>Normalmente, una de las IPs ser&aacute; la de la conexi&oacute;n WiFi, incluyendo en el nombre algo como &quot;Wireless&quot; o &quot;WLAN&quot;. El n&uacute;mero ha de ser algo parecido a 192.168.xx.yy. Esta <b>s&iacute;</b> es la que nos interesa, si pretendemos que el resto de m&aacute;quinas se conecten a trav&eacute;s de la red WiFi.</p>
+
+                    <p>La IP es la &uacute;nica informaci&oacute;n necesaria para &quot;conectarse&quot; al servidor, adem&aacute;s de las contrase&ntilde;as requeridas para modificar datos. En cualquier otro aparato de la misma red, s&oacute;lo tenemos que abrir un navegador y escribir la direcci&oacute;n IP en la barra de navegaci&oacute;n. Es decir, donde normalmente escribir&iacute;amos</p>
+
+                    <p style="text-align: center;">www.pagina-web.com</p>
+
+                    <p>escribimos la IP correspondiente, por ejemplo</p>
+
+                    <p style="text-align: center;">192.168.12.34</p>
+
+                    <p>y el navegador web nos mostrar&aacute; la pantalla de inicio.</p>
+
+                    <p><b>La IP puede variar de ejecuci&oacute;n a ejecuci&oacute;n, y deber&iacute;a ser lo primero que comprobemos al arrancar el programa. </b></p>
                 </div>
                 <div class="toc_item" title="Panel de control">
+                    <p>El resto de pesta&ntilde;as cumplen la funci&oacute;n de panel de control. En ellas podemos acceder directamente a todos los datos, y modificarlos.</p>
+
+                    <p><b>El panel de control no requiere contrase&ntilde;a - su objetivo es, en parte, servir de control de emergencia, si el acceso web da alg&uacute;n problema. El ordenador que lo ejecuta debe bloquearse con contrase&ntilde;a para evitar que cualquier persona pueda manipularlo. </b></p>
+                    <div class="toc_item" title="Cron&oacute;metros">
+                        <p>En esta pesta&ntilde;a podemos ver todos los cron&oacute;metros creados y su estado actual. Adem&aacute;s, nos permite poner en marcha o parar el cron&oacute;metro seleccionado en la lista. Si es necesario, tambi&eacute;n se pueden eliminar los cron&oacute;metros desde aqu&iacute; - por ejemplo, si el dispositivo que cre&oacute; uno se ha apagado y no puede volver a acceder a &eacute;l.</p>
+                    </div>
                 </div>
             </div>
             <div class="toc_item" title="El cron&oacute;metro">
-                <div class="toc_item" title="Funcionamiento">
-                </div>
-                <div class="toc_item" title="Crear un cron&oacute;metro">
+                <p>El cron&oacute;metro est&aacute; especialmente pensado para una sesi&oacute;n de debate. La informaci&oacute;n que muestra es la intervenci&oacute;n actual, su tiempo en cuenta atr&aacute;s, los equipos y su postura, y opcionalmente un cron&oacute;metro secundario - por ejemplo, para preguntas.</p>
+
+                <p>La marcha del cron&oacute;metro se indica con una l&iacute;nea verde en torno al mismo. Cuando se cruza el tiempo l&iacute;mite, el fondo se vuelve rojo, y el cron&oacute;metro cuenta en negativo.</p>
+
+                <p>Se puede acceder a los cron&oacute;metros desde la p&aacute;gina principal, o directamente yendo a</p>
+
+                <p style="text-align: center;"><i>[direcci&oacute;n IP]</i>/chrono</p>
+                <div class="toc_item" title="Crear y borrar un cron&oacute;metro">
+                    <p>Para iniciar un cron&oacute;metro, seleccionamos &quot;Nuevo&quot; en la lista. A no ser que ya se haya hecho antes, en este momento hay que introducir la contrase&ntilde;a para el cron&oacute;metro que se especific&oacute; al iniciar el programa. La contrase&ntilde;a ha de ser introducida en el recuadro en blanco que aparece en el centro de la pantalla.</p>
+
+                    <p>A continuaci&oacute;n, seleccionamos los dos equipos que participar&aacute;n. La postura de cada uno se puede cambiar m&aacute;s tarde, para poder esperar a que sea sorteada.</p>
+
+                    <p><b>S&oacute;lo el dispositivo que cre&oacute; el cron&oacute;metro puede controlarlo y borrarlo desde la web. </b> Evidentemente, el prop&oacute;sito de esto es que distintos encargados del cron&oacute;metro no puedan interferir entre s&iacute; - pero tiene dos consecuencias importantes</p>
+
+                    <ul> <li>El cron&oacute;metro ha de ser creado <b>desde el aparato con el que se va a controlar</b>, t&iacute;picamente un <i>smartphone</i> o <i>tablet</i>.</li> <li>Si el dispositivo que cre&oacute; un cron&oacute;metro se apaga, o si cierra la sesi&oacute;n del navegador, es imposible controlar o borrar el cron&oacute;metro v&iacute;a web. Es necesario ir al servidor y eliminarlo manualmente.</li> </ul>
+
+                    <p>Una vez terminado el uso de un cron&oacute;metro, su creador puede borrarlo de la lista simplemente seleccionando &quot;Borrar&quot;. <b>Esta operaci&oacute;n es irreversible.</b></p>
                 </div>
                 <div class="toc_item" title="Control">
+                    <p>Una vez iniciado un cron&oacute;metro, su creador <b>(y s&oacute;lo el creador)</b> puede elegir la opci&oacute;n &quot;Control&quot; en la lista. Adem&aacute;s de poner en marcha y parar los dos cron&oacute;metros, tambi&eacute;n dispone de un bot&oacute;n de &quot;<i>reset</i>&quot; para reiniciar el cron&oacute;metro principal. Este est&aacute; acompa&ntilde;ado de un recuadro editable con el tiempo al que se reinicia. Por defecto es el tiempo de la postura actual, pero puede ser cambiado - por ejemplo, para volver a empezar desde alg&uacute;n punto intermedio si se produce una interrupci&oacute;n en el debate.</p>
+
+                    <p>La hoja de control tambi&eacute;n tiene un bot&oacute;n de &quot;Intercambio&quot;, que cambia las posturas de ambos equipos (A favor o En Contra). Debe ser utilizado para asignar las posturas correspondientes una vez realizado el sorteo.</p>
+
+                    <p>El bot&oacute;n &quot;Siguiente&quot; termina el turno actual y pasa a la pr&oacute;xima intervenci&oacute;n, seg&uacute;n el orden normal del debate. Si por equivocaci&oacute;n u otro motivo es necesario volver atr&aacute;s, la hoja tambi&eacute;n ofrece una lista de todas las posturas. Al pulsar cualquiera de ellas, el cron&oacute;metro se reiniciar&aacute; con el tiempo correspondiente.</p>
                 </div>
                 <div class="toc_item" title="Ver un cron&oacute;metro">
+                    <p><b>Cualquier</b> m&aacute;quina de la red puede ver <b>cualquier</b> cron&oacute;metro. De este modo, mientras se controla desde alg&uacute;n dispositivo m&oacute;vil, el cron&oacute;metro en s&iacute; se puede proyectar para el p&uacute;blico, ser mostrado en una pantalla para los debatientes, otra para los jueces, y si uno se siente generoso con los medios, en una pantalla externa para que el p&uacute;blico que llega tarde sepa cuando puede entrar.</p>
+
+                    <p>Para conectarse, s&oacute;lo es necesario ir a la lista, en</p>
+
+                    <p style="text-align: center;"><i>[direcci&oacute;n IP]</i>/chrono</p>
+
+                    <p>y seleccionar &quot;Ver&quot; en el cron&oacute;metro que uno quiera consultar.</p>
                 </div>
             </div>
         </div>
